@@ -46,26 +46,30 @@
             scroll-behavior: smooth;
         }
 
+        html {
+            height: 100%;
+        }
+
         body {
             font-family: var(--font);
             background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
+            height: 100%;
             line-height: 1.45;
             -webkit-font-smoothing: antialiased;
             background-image:
                 radial-gradient(circle at 10% 0%, #fff9f0 0%, transparent 45%),
                 radial-gradient(circle at 90% 100%, #fdf5ea 0%, transparent 50%);
-            padding-bottom: 90px;
         }
 
         /* ─── APP WRAPPER ─────────────────── */
         .app-container {
             max-width: 680px;
             margin: 0 auto;
-            min-height: 100vh;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         /* ─── HEADER ──────────────────────── */
@@ -222,9 +226,10 @@
             align-items: center;
             gap: 6px;
             position: sticky;
-            top: 55px;
+            top: 0;
             z-index: 90;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            flex-shrink: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
         }
 
         .nav-arrow-btn {
@@ -364,8 +369,7 @@
 
         /* ─── MAIN CONTENT ────────────────── */
         .main-content {
-            padding: 14px 14px 20px;
-            flex: 1;
+            padding: 14px 14px calc(84px + env(safe-area-inset-bottom, 0px));
         }
 
         /* ─── MONTH HERO CARD ─────────────── */
@@ -734,6 +738,7 @@
             padding: 16px 14px;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border);
+            margin-bottom: 14px;
         }
 
         .challenges-header {
@@ -1010,6 +1015,342 @@
             gap: 4px;
         }
 
+        /* ─── GASTOS SECTION ──────────────── */
+        .expenses-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-top: 14px;
+        }
+
+        .expenses-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid var(--surface2);
+        }
+
+        .expenses-title-group {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .expenses-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .expenses-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            line-height: 1.15;
+        }
+
+        .expenses-date-subtitle {
+            font-size: 0.72rem;
+            color: var(--text3);
+            font-weight: 600;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .expenses-month-badge {
+            font-size: 0.76rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #fff0e6;
+            color: var(--accent);
+            border: 1px solid rgba(255, 118, 59, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .expense-form-card {
+            background: #faf7f2;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .expense-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .expense-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .expense-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .expense-input-group label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .expense-input,
+        .expense-select {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            font-family: var(--font);
+            font-size: 0.88rem;
+            background: #ffffff;
+            color: var(--text);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .expense-input:focus,
+        .expense-select:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(255, 118, 59, 0.15);
+        }
+
+        .expense-amount-row {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .expense-amount-wrap {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .expense-amount-wrap .expense-currency {
+            position: absolute;
+            right: 12px;
+            top: 28px;
+            font-weight: 700;
+            color: var(--text3);
+            font-size: 0.95rem;
+            pointer-events: none;
+        }
+
+        .expense-amount-wrap .expense-input {
+            padding-right: 28px;
+            font-weight: 700;
+        }
+
+        .btn-add-expense {
+            background: var(--accent);
+            color: #ffffff;
+            border: 1px solid var(--accent);
+            padding: 9px 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            white-space: nowrap;
+            min-height: 38px;
+            box-shadow: 0 2px 8px rgba(255, 118, 59, 0.25);
+        }
+
+        .btn-add-expense:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-add-expense:active {
+            transform: scale(0.96);
+        }
+
+        /* Acumulado mensual */
+        .expense-month-summary-card {
+            background: linear-gradient(135deg, #fff9f5 0%, #fef5ec 100%);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            border: 1.5px solid #fed7aa;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .expense-summary-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .expense-summary-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #9a3412;
+        }
+
+        .expense-total-amount {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ea580c;
+            letter-spacing: -0.3px;
+        }
+
+        .expense-cat-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 2px;
+        }
+
+        .expense-cat-pill {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow-xs);
+        }
+
+        /* Lista de gastos del día */
+        .expense-day-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text2);
+            margin-bottom: 8px;
+            padding: 0 2px;
+        }
+
+        .expense-day-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .expense-item-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px 12px;
+            background: #faf7f2;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .expense-item-card:hover {
+            background: #f5efe6;
+        }
+
+        .expense-item-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .expense-item-emoji {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .expense-item-details {
+            min-width: 0;
+        }
+
+        .expense-item-cat {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .expense-item-note {
+            font-size: 0.72rem;
+            color: var(--text2);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 1px;
+        }
+
+        .expense-item-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .expense-item-price {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .btn-delete-expense {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-delete-expense:hover {
+            background: #fee2e2;
+            color: #dc2626;
+            border-color: #fca5a5;
+        }
+
+        .btn-delete-expense svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .expense-empty-msg {
+            text-align: center;
+            padding: 12px;
+            font-size: 0.78rem;
+            color: var(--text3);
+            font-weight: 500;
+        }
+
         /* ─── EMPTY STATE ─────────────────── */
         .empty-state {
             text-align: center;
@@ -1054,13 +1395,387 @@
             text-transform: capitalize;
         }
 
+        /* ─── SWIPE VIEWS CONTAINER ───────── */
+        .screens-viewport {
+            width: 100%;
+            overflow: hidden;
+            flex: 1;
+            min-height: 0;
+            display: flex;
+        }
+
+        .screens-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+            touch-action: pan-y;
+        }
+
+        .screen-pane {
+            width: 33.333333%;
+            flex-shrink: 0;
+            box-sizing: border-box;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* paneHome: block para que .month-tabs-bar con sticky funcione bien */
+        #paneHome {
+            display: block;
+        }
+
+        /* ─── IPHONE TAB BAR (FOOTER) ─────── */
+        .ios-tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 120;
+            background: rgba(251, 248, 244, 0.9);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-top: 1px solid var(--border);
+            padding: 6px 12px calc(8px + env(safe-area-inset-bottom, 8px));
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -4px 20px rgba(50, 35, 20, 0.06);
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .ios-tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px 8px;
+            border-radius: 12px;
+            color: var(--text3);
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            position: relative;
+        }
+
+        .ios-tab-item:active {
+            transform: scale(0.92);
+        }
+
+        .ios-tab-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .ios-tab-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke-width: 2.2;
+        }
+
+        .ios-tab-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: -0.1px;
+            line-height: 1;
+        }
+
+        .ios-tab-item.active {
+            color: var(--accent);
+        }
+
+        .ios-tab-item.active .ios-tab-icon {
+            transform: translateY(-1px);
+        }
+
+        .ios-tab-item.active .ios-tab-label {
+            font-weight: 800;
+        }
+
+        /* ─── ANALYTICS PANE STYLES ───────── */
+        .analytics-container {
+            padding: 14px 14px calc(84px + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .analytics-hero-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .analytics-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .analytics-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .analytics-period-toggle {
+            display: flex;
+            background: var(--surface2);
+            border-radius: 999px;
+            padding: 3px;
+            border: 1px solid var(--border);
+            gap: 2px;
+        }
+
+        .btn-period {
+            border: none;
+            background: transparent;
+            padding: 5px 12px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            border-radius: 999px;
+            color: var(--text2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-period.active {
+            background: #ffffff;
+            color: var(--accent);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .analytics-kpis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .analytics-kpi-box {
+            background: #faf7f2;
+            border-radius: var(--radius);
+            padding: 12px;
+            border: 1.5px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .analytics-kpi-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .analytics-kpi-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+
+        .analytics-kpi-sub {
+            font-size: 0.68rem;
+            color: var(--text2);
+            font-weight: 600;
+        }
+
+        .analytics-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .analytics-card-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .analytics-bar-item {
+            margin-bottom: 10px;
+        }
+
+        .analytics-bar-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .analytics-bar-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .analytics-bar-track {
+            width: 100%;
+            height: 8px;
+            background: var(--surface3);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .analytics-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .analytics-top-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            background: #faf7f2;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 6px;
+            font-size: 0.82rem;
+        }
+
+        .analytics-top-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ─── CONFIG PANE STYLES ──────────── */
+        .config-container {
+            padding: 14px 14px calc(84px + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .config-group-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .config-group-title {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1.5px solid var(--surface2);
+            padding-bottom: 8px;
+        }
+
+        .config-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--surface2);
+        }
+
+        .config-item-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .config-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .config-item-name {
+            font-size: 0.9rem;
+            font-weight: 750;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .config-item-desc {
+            font-size: 0.74rem;
+            color: var(--text3);
+            margin-top: 3px;
+            line-height: 1.35;
+        }
+
+        .config-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .config-stat-box {
+            background: #faf7f2;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 6px;
+            text-align: center;
+        }
+
+        .config-stat-num {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1.1;
+        }
+
+        .config-stat-lbl {
+            font-size: 0.66rem;
+            font-weight: 700;
+            color: var(--text3);
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
         /* ─── FLOATING ACTION BUTTON (FAB) ── */
         .fab {
             position: fixed;
-            bottom: 22px;
-            right: 22px;
-            width: 54px;
-            height: 54px;
+            bottom: calc(68px + env(safe-area-inset-bottom, 10px));
+            right: 18px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background: linear-gradient(135deg, #ff8c4b, #ff5722);
             color: #ffffff;
@@ -1326,7 +2041,7 @@
         <header class="header">
             <div class="header-brand">
                 <div class="logo-badge">📅</div>
-                <span>Ftracker</span>
+                <span id="headerTitle">Ftracker</span>
             </div>
             <div class="header-actions">
                 <div class="view-toggle" id="viewToggle">
@@ -1353,115 +2068,361 @@
                         Todo
                     </button>
                 </div>
-                <button class="btn btn-ghost btn-icon" id="btnExport" title="Exportar JSON" aria-label="Exportar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                </button>
-                <button class="btn btn-ghost btn-icon" id="btnImport" title="Importar JSON" aria-label="Importar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" />
-                        <line x1="12" y1="3" x2="12" y2="15" />
-                    </svg>
-                </button>
             </div>
         </header>
 
-        <!-- MONTH TABS SYSTEM -->
-        <nav class="month-tabs-bar" id="monthTabsBar" aria-label="Navegación de meses">
-            <button class="nav-arrow-btn" id="btnPrevMonth" aria-label="Mes anterior" title="Mes anterior">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="15 18 9 12 15 6" />
-                </svg>
-            </button>
-            <div class="tabs-scroll-wrapper" id="tabsScrollWrapper">
-                <!-- Month tabs injected dynamically -->
-            </div>
-            <button class="nav-arrow-btn" id="btnNextMonth" aria-label="Mes siguiente" title="Mes siguiente">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="9 18 15 12 9 6" />
-                </svg>
-            </button>
-            <button class="btn-today-quick" id="btnTodayQuick" title="Ir a hoy">Hoy</button>
-        </nav>
-
-        <!-- MAIN CONTENT AREA -->
-        <main class="main-content">
-            <!-- VISTA MENSUAL: Cuadrícula de mes único + Lista de actividades + Bloque Retos -->
-            <div id="monthViewContainer">
-                <!-- CALENDARIO DEL MES -->
-                <section class="month-hero-card" id="monthHeroCard">
-                    <div class="month-hero-header">
-                        <div class="month-hero-title">
-                            <span id="heroMonthName">Agosto</span>
-                            <span class="month-hero-year" id="heroYear">2026</span>
-                        </div>
-                        <div class="month-swipe-hint">
-                            <span>↔ Desliza</span>
-                        </div>
-                    </div>
-                    <div class="weekdays-row">
-                        <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
-                    </div>
-                    <div class="days-grid" id="singleMonthGrid">
-                        <!-- Day cells -->
-                    </div>
-                </section>
-
-                <!-- LISTA DE ACTIVIDADES DEL MES SELECCIONADO -->
-                <section class="month-activities-section">
-                    <div class="activities-header">
-                        <div class="activities-title-group">
-                            <h2 class="activities-title" id="monthActivitiesHeading">Actividades de Agosto 2026</h2>
-                            <span class="activities-count-badge" id="monthActivitiesCount">0</span>
-                        </div>
-                        <button class="btn btn-sm btn-accent" id="btnAddForMonth">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12"
-                                height="12">
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
+        <!-- SWIPE SCREENS VIEWPORT -->
+        <div class="screens-viewport" id="screensViewport">
+            <div class="screens-track" id="screensTrack">
+                <!-- PANE 0: INICIO / CALENDARIO -->
+                <div class="screen-pane" id="paneHome">
+                    <!-- MONTH TABS SYSTEM -->
+                    <nav class="month-tabs-bar" id="monthTabsBar" aria-label="Navegación de meses">
+                        <button class="nav-arrow-btn" id="btnPrevMonth" aria-label="Mes anterior" title="Mes anterior">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="15 18 9 12 15 6" />
                             </svg>
-                            Añadir
                         </button>
-                    </div>
+                        <div class="tabs-scroll-wrapper" id="tabsScrollWrapper">
+                            <!-- Month tabs injected dynamically -->
+                        </div>
+                        <button class="nav-arrow-btn" id="btnNextMonth" aria-label="Mes siguiente" title="Mes siguiente">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
+                        <button class="btn-today-quick" id="btnTodayQuick" title="Ir a hoy">Hoy</button>
+                    </nav>
 
-                    <!-- Chip de filtro si hay un día concreto pulsado -->
-                    <div id="activeDayFilterChip" class="hidden"></div>
+                    <!-- MAIN CONTENT AREA -->
+                    <main class="main-content">
+                        <!-- VISTA MENSUAL: Cuadrícula de mes único + Lista de actividades + Bloque Retos + Bloque Gastos -->
+                        <div id="monthViewContainer">
+                            <!-- CALENDARIO DEL MES -->
+                            <section class="month-hero-card" id="monthHeroCard">
+                                <div class="month-hero-header">
+                                    <div class="month-hero-title">
+                                        <span id="heroMonthName">Agosto</span>
+                                        <span class="month-hero-year" id="heroYear">2026</span>
+                                    </div>
+                                    <div class="month-swipe-hint">
+                                        <span>↔ Desliza</span>
+                                    </div>
+                                </div>
+                                <div class="weekdays-row">
+                                    <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                                </div>
+                                <div class="days-grid" id="singleMonthGrid">
+                                    <!-- Day cells -->
+                                </div>
+                            </section>
 
-                    <!-- Lista de tarjetas de actividades -->
-                    <div id="monthActivitiesList">
-                        <!-- Cards injected dynamically -->
-                    </div>
-                </section>
+                            <!-- LISTA DE ACTIVIDADES DEL MES SELECCIONADO -->
+                            <section class="month-activities-section">
+                                <div class="activities-header">
+                                    <div class="activities-title-group">
+                                        <h2 class="activities-title" id="monthActivitiesHeading">Actividades de Agosto 2026</h2>
+                                        <span class="activities-count-badge" id="monthActivitiesCount">0</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-accent" id="btnAddForMonth">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12"
+                                            height="12">
+                                            <line x1="12" y1="5" x2="12" y2="19" />
+                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                        </svg>
+                                        Añadir
+                                    </button>
+                                </div>
 
-                <!-- BLOQUE RETOS DIARIOS -->
-                <section class="challenges-section" id="challengesSection">
-                    <div class="challenges-header">
-                        <div class="challenges-title-group">
-                            <span class="challenges-icon">🎯</span>
-                            <div>
-                                <h2 class="challenges-title">Retos del Día</h2>
-                                <span class="challenges-date-subtitle" id="challengesDateSubtitle">16 de Agosto de
-                                    2026</span>
+                                <!-- Chip de filtro si hay un día concreto pulsado -->
+                                <div id="activeDayFilterChip" class="hidden"></div>
+
+                                <!-- Lista de tarjetas de actividades -->
+                                <div id="monthActivitiesList">
+                                    <!-- Cards injected dynamically -->
+                                </div>
+                            </section>
+
+                            <!-- BLOQUE RETOS DIARIOS -->
+                            <section class="challenges-section" id="challengesSection">
+                                <div class="challenges-header">
+                                    <div class="challenges-title-group">
+                                        <span class="challenges-icon">🎯</span>
+                                        <div>
+                                            <h2 class="challenges-title">Retos del Día</h2>
+                                            <span class="challenges-date-subtitle" id="challengesDateSubtitle">16 de Agosto de
+                                                2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="challenges-score-badge" id="challengesScoreBadge">0/2</div>
+                                </div>
+
+                                <div class="challenges-list" id="challengesList">
+                                    <!-- Challenge items injected dynamically -->
+                                </div>
+                            </section>
+
+                            <!-- BLOQUE GASTOS -->
+                            <section class="expenses-section" id="expensesSection">
+                                <div class="expenses-header">
+                                    <div class="expenses-title-group">
+                                        <span class="expenses-icon">💳</span>
+                                        <div>
+                                            <h2 class="expenses-title">Gastos</h2>
+                                            <span class="expenses-date-subtitle" id="expensesDateSubtitle">16 de Agosto de 2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="expenses-month-badge" id="expensesMonthBadge">
+                                        <span>0,00 € este mes</span>
+                                    </div>
+                                </div>
+
+                                <!-- Formulario para introducir gasto -->
+                                <form class="expense-form-card" id="expenseForm" autocomplete="off">
+                                    <div class="expense-form-grid">
+                                        <div class="expense-input-group">
+                                            <label for="expenseCategory">Categoría</label>
+                                            <select class="expense-select" id="expenseCategory" required>
+                                                <option value="Supermercado">🛒 Supermercado</option>
+                                                <option value="Restaurante">🍽️ Restaurante</option>
+                                                <option value="Gasolina">⛽ Gasolina</option>
+                                                <option value="Ropa">👗 Ropa</option>
+                                                <option value="Regalos">🎁 Regalos</option>
+                                                <option value="Otro">📦 Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="expense-input-group">
+                                            <label for="expenseNote">Detalle <span style="font-weight:400;color:var(--text3);">(opcional)</span></label>
+                                            <input type="text" class="expense-input" id="expenseNote" placeholder="Ej: Compra semanal, cena..." maxlength="60">
+                                        </div>
+                                    </div>
+                                    <div class="expense-amount-row">
+                                        <div class="expense-input-group expense-amount-wrap">
+                                            <label for="expenseAmount">Importe en Euros</label>
+                                            <input type="number" class="expense-input" id="expenseAmount" step="0.01" min="0.01" placeholder="0.00" required>
+                                            <span class="expense-currency">€</span>
+                                        </div>
+                                        <button type="submit" class="btn-add-expense" id="btnAddExpense">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15">
+                                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                            </svg>
+                                            Añadir Gasto
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <!-- Resumen del Gasto Acumulado del Mes -->
+                                <div class="expense-month-summary-card" id="expenseMonthSummaryCard">
+                                    <!-- Summary injected dynamically -->
+                                </div>
+
+                                <!-- Lista de Gastos del Día -->
+                                <div>
+                                    <div class="expense-day-list-header">
+                                        <span id="expenseDayListTitle">Gastos del día</span>
+                                        <span id="expenseDayTotalBadge" style="font-size:0.75rem;font-weight:800;color:var(--text);">0,00 €</span>
+                                    </div>
+                                    <div class="expense-day-list" id="expenseDayList">
+                                        <!-- Expense items injected dynamically -->
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- VISTA GLOBAL: Lista de todos los meses -->
+                        <div id="globalListView" class="hidden all-months-list">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </main>
+                </div>
+
+                <!-- PANE 1: ANALÍTICA -->
+                <div class="screen-pane" id="paneAnalytics">
+                    <div class="analytics-container">
+                        <div class="analytics-hero-card">
+                            <div class="analytics-header-row">
+                                <div class="analytics-title">
+                                    <span>📊</span>
+                                    <span>Balance y Métricas</span>
+                                </div>
+                                <div class="analytics-period-toggle">
+                                    <button type="button" class="btn-period active" data-period="month" id="btnPeriodMonth">Mes Actual</button>
+                                    <button type="button" class="btn-period" data-period="all" id="btnPeriodAll">Todo</button>
+                                </div>
+                            </div>
+                            
+                            <!-- KPIs Grid -->
+                            <div class="analytics-kpis-grid">
+                                <div class="analytics-kpi-box">
+                                    <span class="analytics-kpi-label">🎯 Éxito Retos</span>
+                                    <span class="analytics-kpi-value" id="kpiRetosRate">0%</span>
+                                    <span class="analytics-kpi-sub" id="kpiRetosCount">0 éxitos</span>
+                                </div>
+                                <div class="analytics-kpi-box">
+                                    <span class="analytics-kpi-label">💳 Gasto Total</span>
+                                    <span class="analytics-kpi-value" id="kpiGastosTotal" style="color:var(--accent);">0 €</span>
+                                    <span class="analytics-kpi-sub" id="kpiGastosAvg">0 € / día</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="challenges-score-badge" id="challengesScoreBadge">0/2</div>
-                    </div>
 
-                    <div class="challenges-list" id="challengesList">
-                        <!-- Challenge items injected dynamically -->
-                    </div>
-                </section>
-            </div>
+                        <!-- Card Balance Retos -->
+                        <div class="analytics-card" id="analyticsRetosCard">
+                            <div class="analytics-card-title">
+                                <span>🎯 Balance de Retos Diarios</span>
+                                <span class="stats-badge tier-gold" id="analyticsRetosBadge">🏆 En marcha</span>
+                            </div>
+                            <div id="analyticsRetosDetails">
+                                <!-- Dynamic Retos balance items (Dieta & Ejercicio) -->
+                            </div>
+                        </div>
 
-            <!-- VISTA GLOBAL: Lista de todos los meses -->
-            <div id="globalListView" class="hidden all-months-list">
-                <!-- Injected dynamically -->
+                        <!-- Card Balance Gastos -->
+                        <div class="analytics-card" id="analyticsGastosCard">
+                            <div class="analytics-card-title">
+                                <span>💶 Distribución de Gastos</span>
+                                <span id="analyticsGastosCountBadge" style="font-size:0.74rem;font-weight:700;color:var(--text3);">0 gastos</span>
+                            </div>
+                            <div id="analyticsGastosCategories">
+                                <!-- Dynamic Expense categories breakdown bars -->
+                            </div>
+                        </div>
+
+                        <!-- Top Gastos -->
+                        <div class="analytics-card" id="analyticsTopGastosCard">
+                            <div class="analytics-card-title">
+                                <span>🔝 Mayores Gastos</span>
+                            </div>
+                            <div id="analyticsTopGastosList">
+                                <!-- Top expenses list -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANE 2: CONFIG -->
+                <div class="screen-pane" id="paneConfig">
+                    <div class="config-container">
+                        <!-- Copias de Seguridad -->
+                        <div class="config-group-card">
+                            <div class="config-group-title">
+                                <span>💾</span>
+                                <span>Copias de Seguridad (Backup)</span>
+                            </div>
+                            
+                            <div class="config-item-row">
+                                <div class="config-item-info">
+                                    <div class="config-item-name">📥 Exportar Copia JSON</div>
+                                    <div class="config-item-desc">Descarga un archivo con tus actividades, retos diarios y gastos para guardarlo o transferirlo.</div>
+                                </div>
+                                <button type="button" class="btn btn-accent btn-sm" id="btnConfigExport">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                        <polyline points="7 10 12 15 17 10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                    Exportar
+                                </button>
+                            </div>
+
+                            <div class="config-item-row">
+                                <div class="config-item-info">
+                                    <div class="config-item-name">📤 Importar Copia JSON</div>
+                                    <div class="config-item-desc">Restaura actividades, retos y gastos desde un archivo JSON previo.</div>
+                                </div>
+                                <button type="button" class="btn btn-sm" id="btnConfigImport" style="background:var(--surface2);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Importar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Estado de la Base de Datos -->
+                        <div class="config-group-card">
+                            <div class="config-group-title">
+                                <span>📊</span>
+                                <span>Datos Almacenados</span>
+                            </div>
+                            <div class="config-stats-grid">
+                                <div class="config-stat-box">
+                                    <div class="config-stat-num" id="statActsCount">0</div>
+                                    <div class="config-stat-lbl">Actividades</div>
+                                </div>
+                                <div class="config-stat-box">
+                                    <div class="config-stat-num" id="statRetosCount">0</div>
+                                    <div class="config-stat-lbl">Días Retos</div>
+                                </div>
+                                <div class="config-stat-box">
+                                    <div class="config-stat-num" id="statGastosCount">0</div>
+                                    <div class="config-stat-lbl">Gastos</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Zona de Gestión / Reset -->
+                        <div class="config-group-card">
+                            <div class="config-group-title">
+                                <span>⚠️</span>
+                                <span>Zona de Gestión</span>
+                            </div>
+                            <div class="config-item-row">
+                                <div class="config-item-info">
+                                    <div class="config-item-name" style="color:#dc2626;">🗑️ Reiniciar Todos los Datos</div>
+                                    <div class="config-item-desc">Borra todas las actividades, retos y gastos de la memoria del navegador.</div>
+                                </div>
+                                <button type="button" class="btn btn-sm" id="btnConfigReset" style="background:#fee2e2;color:#dc2626;border-color:#fca5a5;">
+                                    Borrar Todo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- App Info -->
+                        <div style="text-align:center;padding:10px 0 30px;color:var(--text3);font-size:0.75rem;">
+                            <strong>Ftracker</strong> v2.0 • Calendario Familiar, Retos y Gastos 2026 - 2027
+                        </div>
+                    </div>
+                </div>
             </div>
-        </main>
+        </div>
+
+        <!-- IPHONE BOTTOM TAB BAR -->
+        <nav class="ios-tab-bar" id="iosTabBar" aria-label="Menú de navegación">
+            <button type="button" class="ios-tab-item active" data-tab="0" id="tabNavHome" aria-label="Calendario">
+                <div class="ios-tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                </div>
+                <span class="ios-tab-label">Calendario</span>
+            </button>
+            <button type="button" class="ios-tab-item" data-tab="1" id="tabNavAnalytics" aria-label="Analítica">
+                <div class="ios-tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                </div>
+                <span class="ios-tab-label">Analítica</span>
+            </button>
+            <button type="button" class="ios-tab-item" data-tab="2" id="tabNavConfig" aria-label="Configuración">
+                <div class="ios-tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </div>
+                <span class="ios-tab-label">Config</span>
+            </button>
+        </nav>
 
         <!-- FAB (AÑADIR RÁPIDO) -->
         <button class="fab" id="fabAdd" aria-label="Añadir actividad" title="Añadir actividad">
@@ -1571,6 +2532,16 @@
             // ─── CONSTANTES Y TIMELINE DE MESES ───
             const STORAGE_KEY = 'calendario_familiar_2026_data';
             const RETOS_STORAGE_KEY = 'calendario_familiar_retos_data';
+            const GASTOS_STORAGE_KEY = 'calendario_familiar_gastos_data';
+
+            const EXPENSE_CAT_CONFIG = {
+                'Supermercado': { emoji: '🛒', color: '#059669', bg: '#d1fae5' },
+                'Restaurante': { emoji: '🍽️', color: '#d97706', bg: '#fef3c7' },
+                'Gasolina': { emoji: '⛽', color: '#dc2626', bg: '#fee2e2' },
+                'Ropa': { emoji: '👗', color: '#7c3aed', bg: '#ede9fe' },
+                'Regalos': { emoji: '🎁', color: '#db2777', bg: '#fce7f3' },
+                'Otro': { emoji: '📦', color: '#4b5563', bg: '#f3f4f6' }
+            };
 
             const MONTHS_ES = [
                 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -1628,11 +2599,21 @@
 
             let activities = [];
             let retosData = {}; // Formato: { "YYYY-MM-DD": { dieta: "si"|"no"|null, ejercicio: "si"|"no"|null } }
+            let gastos = []; // Formato: [ { id, date: "YYYY-MM-DD", category, note, amount, createdAt } ]
             let currentView = 'grid';
             let selectedMonthIndex = 0; // Por defecto Agosto 2026
-            let selectedDay = null; // Si es null, usa el día actual o 1 para los retos
+            let selectedDay = null; // Si es null, usa el día actual o 1 para los retos y gastos
+            let currentTabIndex = 0; // 0: Calendario, 1: Analítica, 2: Config
+            let analyticsPeriod = 'month'; // 'month' | 'all'
 
             // ─── DOM REFS ──────────────────────
+            const $screensViewport = document.getElementById('screensViewport');
+            const $screensTrack = document.getElementById('screensTrack');
+            const $tabNavHome = document.getElementById('tabNavHome');
+            const $tabNavAnalytics = document.getElementById('tabNavAnalytics');
+            const $tabNavConfig = document.getElementById('tabNavConfig');
+            const $headerTitle = document.getElementById('headerTitle');
+            const $viewToggle = document.getElementById('viewToggle');
             const $tabsScrollWrapper = document.getElementById('tabsScrollWrapper');
             const $btnPrevMonth = document.getElementById('btnPrevMonth');
             const $btnNextMonth = document.getElementById('btnNextMonth');
@@ -1650,6 +2631,17 @@
             const $challengesDateSubtitle = document.getElementById('challengesDateSubtitle');
             const $challengesScoreBadge = document.getElementById('challengesScoreBadge');
             const $challengesList = document.getElementById('challengesList');
+            const $expensesSection = document.getElementById('expensesSection');
+            const $expensesDateSubtitle = document.getElementById('expensesDateSubtitle');
+            const $expensesMonthBadge = document.getElementById('expensesMonthBadge');
+            const $expenseForm = document.getElementById('expenseForm');
+            const $expenseCategory = document.getElementById('expenseCategory');
+            const $expenseNote = document.getElementById('expenseNote');
+            const $expenseAmount = document.getElementById('expenseAmount');
+            const $expenseMonthSummaryCard = document.getElementById('expenseMonthSummaryCard');
+            const $expenseDayListTitle = document.getElementById('expenseDayListTitle');
+            const $expenseDayTotalBadge = document.getElementById('expenseDayTotalBadge');
+            const $expenseDayList = document.getElementById('expenseDayList');
             const $btnAddForMonth = document.getElementById('btnAddForMonth');
             const $btnGridView = document.getElementById('btnGridView');
             const $btnListView = document.getElementById('btnListView');
@@ -1672,9 +2664,25 @@
             const $confirmDeleteId = document.getElementById('confirmDeleteId');
             const $confirmCancel = document.getElementById('confirmCancel');
             const $confirmOk = document.getElementById('confirmOk');
-            const $btnExport = document.getElementById('btnExport');
-            const $btnImport = document.getElementById('btnImport');
+            const $btnConfigExport = document.getElementById('btnConfigExport');
+            const $btnConfigImport = document.getElementById('btnConfigImport');
+            const $btnConfigReset = document.getElementById('btnConfigReset');
             const $importFileInput = document.getElementById('importFileInput');
+            const $btnPeriodMonth = document.getElementById('btnPeriodMonth');
+            const $btnPeriodAll = document.getElementById('btnPeriodAll');
+            const $kpiRetosRate = document.getElementById('kpiRetosRate');
+            const $kpiRetosCount = document.getElementById('kpiRetosCount');
+            const $kpiGastosTotal = document.getElementById('kpiGastosTotal');
+            const $kpiGastosAvg = document.getElementById('kpiGastosAvg');
+            const $analyticsRetosBadge = document.getElementById('analyticsRetosBadge');
+            const $analyticsRetosDetails = document.getElementById('analyticsRetosDetails');
+            const $analyticsGastosCard = document.getElementById('analyticsGastosCard');
+            const $analyticsGastosCountBadge = document.getElementById('analyticsGastosCountBadge');
+            const $analyticsGastosCategories = document.getElementById('analyticsGastosCategories');
+            const $analyticsTopGastosList = document.getElementById('analyticsTopGastosList');
+            const $statActsCount = document.getElementById('statActsCount');
+            const $statRetosCount = document.getElementById('statRetosCount');
+            const $statGastosCount = document.getElementById('statGastosCount');
 
             function getCatConfig(cat) {
                 return categoryConfig[cat] || categoryConfig['otro'];
@@ -1858,6 +2866,7 @@
                         } else if (parsed && typeof parsed === 'object' && Array.isArray(parsed.activities)) {
                             activities = parsed.activities;
                             if (parsed.retos) retosData = parsed.retos;
+                            if (parsed.gastos && Array.isArray(parsed.gastos)) gastos = parsed.gastos;
                         }
                     } else {
                         activities = [];
@@ -1876,9 +2885,15 @@
                     if (rawRetos) {
                         retosData = JSON.parse(rawRetos) || {};
                     }
+
+                    const rawGastos = localStorage.getItem(GASTOS_STORAGE_KEY);
+                    if (rawGastos) {
+                        gastos = JSON.parse(rawGastos) || [];
+                    }
                 } catch (e) {
                     activities = [];
                     retosData = {};
+                    gastos = [];
                     saveData();
                 }
             }
@@ -1887,6 +2902,7 @@
                 try {
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
                     localStorage.setItem(RETOS_STORAGE_KEY, JSON.stringify(retosData));
+                    localStorage.setItem(GASTOS_STORAGE_KEY, JSON.stringify(gastos));
                 } catch (e) {
                     showToast('⚠️ No se pudo guardar en almacenamiento local');
                 }
@@ -1896,6 +2912,7 @@
                 const exportObj = {
                     activities: activities,
                     retos: retosData,
+                    gastos: gastos,
                     exportedAt: new Date().toISOString()
                 };
                 const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: 'application/json' });
@@ -1905,7 +2922,7 @@
                 a.download = `calendario_familiar_2026_2027.json`;
                 a.click();
                 URL.revokeObjectURL(url);
-                showToast('✅ Datos y retos exportados');
+                showToast('✅ Datos, retos y gastos exportados');
             }
 
             function importData(file) {
@@ -1918,6 +2935,7 @@
                         } else if (data && typeof data === 'object') {
                             if (Array.isArray(data.activities)) activities = data.activities;
                             if (data.retos && typeof data.retos === 'object') retosData = data.retos;
+                            if (data.gastos && Array.isArray(data.gastos)) gastos = data.gastos;
                         } else {
                             throw new Error('Formato inválido');
                         }
@@ -2091,6 +3109,7 @@
                 renderSingleMonthDays();
                 renderMonthActivitiesList();
                 renderChallengesSection();
+                renderExpensesSection();
             }
 
             // ─── RENDER: LISTA DE ACTIVIDADES DEL MES ─
@@ -2366,6 +3385,168 @@
                 });
             }
 
+            // ─── RENDER: GASTOS Y ACUMULADO MENSUAL ──
+            function formatCurrency(amount) {
+                const val = parseFloat(amount) || 0;
+                return val.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+            }
+
+            function getTargetDayForCurrentMonth() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const year = curr.year;
+                const month = curr.month;
+                const today = new Date();
+                let targetDay = selectedDay;
+                if (!targetDay) {
+                    if (today.getFullYear() === year && today.getMonth() === month) {
+                        targetDay = today.getDate();
+                    } else {
+                        targetDay = 1;
+                    }
+                }
+                return targetDay;
+            }
+
+            function renderExpensesSection() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const year = curr.year;
+                const month = curr.month;
+                const targetDay = getTargetDayForCurrentMonth();
+                const targetDateStr = formatDateToInput(year, month, targetDay);
+
+                $expensesDateSubtitle.textContent = `${targetDay} de ${MONTHS_ES[month]} de ${year}`;
+                $expenseDayListTitle.textContent = `Gastos del ${targetDay} de ${MONTHS_ES[month]}`;
+
+                // Gastos del mes seleccionado
+                const monthGastos = gastos.filter(g => {
+                    const d = parseDate(g.date);
+                    return d && d.getFullYear() === year && d.getMonth() === month;
+                });
+
+                const monthTotal = monthGastos.reduce((sum, g) => sum + (parseFloat(g.amount) || 0), 0);
+                $expensesMonthBadge.innerHTML = `<span>💰 Total Mes: <strong>${formatCurrency(monthTotal)}</strong></span>`;
+
+                // Desglose por categoría del mes
+                const catTotals = {};
+                monthGastos.forEach(g => {
+                    catTotals[g.category] = (catTotals[g.category] || 0) + (parseFloat(g.amount) || 0);
+                });
+
+                const sortedCats = Object.keys(catTotals).sort((a, b) => catTotals[b] - catTotals[a]);
+
+                let catPillsHtml = '';
+                if (sortedCats.length > 0) {
+                    catPillsHtml = `
+                        <div class="expense-cat-pills">
+                            ${sortedCats.map(cat => {
+                                const conf = EXPENSE_CAT_CONFIG[cat] || EXPENSE_CAT_CONFIG['Otro'];
+                                const pct = monthTotal > 0 ? Math.round((catTotals[cat] / monthTotal) * 100) : 0;
+                                return `
+                                    <span class="expense-cat-pill" style="border-left: 3.5px solid ${conf.color};">
+                                        <span>${conf.emoji} ${cat}:</span>
+                                        <strong>${formatCurrency(catTotals[cat])}</strong>
+                                        <small style="color:var(--text3);">(${pct}%)</small>
+                                    </span>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                }
+
+                $expenseMonthSummaryCard.innerHTML = `
+                    <div class="expense-summary-top">
+                        <span class="expense-summary-label">
+                            <span>📊 Gasto acumulado de ${MONTHS_ES[month]} ${year}</span>
+                        </span>
+                        <span class="expense-total-amount">${formatCurrency(monthTotal)}</span>
+                    </div>
+                    ${catPillsHtml ? catPillsHtml : '<div style="font-size:0.72rem;color:var(--text3);font-style:italic;margin-top:2px;">Sin gastos registrados en este mes todavía.</div>'}
+                `;
+
+                // Gastos del día seleccionado
+                const dayGastos = gastos.filter(g => g.date === targetDateStr);
+                const dayTotal = dayGastos.reduce((sum, g) => sum + (parseFloat(g.amount) || 0), 0);
+                $expenseDayTotalBadge.textContent = `Total día: ${formatCurrency(dayTotal)}`;
+
+                $expenseDayList.innerHTML = '';
+                if (dayGastos.length === 0) {
+                    $expenseDayList.innerHTML = `
+                        <div class="expense-empty-msg">
+                            No hay gastos registrados para el ${targetDay} de ${MONTHS_ES[month]}.
+                        </div>
+                    `;
+                } else {
+                    dayGastos.slice().reverse().forEach(g => {
+                        const conf = EXPENSE_CAT_CONFIG[g.category] || EXPENSE_CAT_CONFIG['Otro'];
+                        const item = document.createElement('div');
+                        item.className = 'expense-item-card';
+                        item.innerHTML = `
+                            <div class="expense-item-left">
+                                <span class="expense-item-emoji">${conf.emoji}</span>
+                                <div class="expense-item-details">
+                                    <div class="expense-item-cat">${escapeHTML(g.category)}</div>
+                                    ${g.note ? `<div class="expense-item-note">💬 ${escapeHTML(g.note)}</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="expense-item-right">
+                                <span class="expense-item-price">${formatCurrency(g.amount)}</span>
+                                <button type="button" class="btn-delete-expense" data-id="${g.id}" title="Eliminar gasto" aria-label="Eliminar gasto">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        `;
+
+                        item.querySelector('.btn-delete-expense').addEventListener('click', () => {
+                            deleteGasto(g.id);
+                        });
+
+                        $expenseDayList.appendChild(item);
+                    });
+                }
+            }
+
+            function saveGasto(e) {
+                e.preventDefault();
+                const category = $expenseCategory.value;
+                const note = $expenseNote.value.trim();
+                const amount = parseFloat($expenseAmount.value);
+
+                if (isNaN(amount) || amount <= 0) {
+                    showToast('⚠️ Introduce un importe válido');
+                    return;
+                }
+
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const targetDay = getTargetDayForCurrentMonth();
+                const targetDateStr = formatDateToInput(curr.year, curr.month, targetDay);
+
+                const newGasto = {
+                    id: 'exp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+                    date: targetDateStr,
+                    category: category || 'Otro',
+                    note: note,
+                    amount: amount,
+                    createdAt: new Date().toISOString()
+                };
+
+                gastos.push(newGasto);
+                saveData();
+                $expenseNote.value = '';
+                $expenseAmount.value = '';
+                renderExpensesSection();
+                showToast(`💶 Gasto de ${formatCurrency(amount)} añadido`);
+            }
+
+            function deleteGasto(id) {
+                gastos = gastos.filter(g => g.id !== id);
+                saveData();
+                renderExpensesSection();
+                showToast('🗑️ Gasto eliminado');
+            }
+
             // ─── RENDER: VISTA GLOBAL (TODOS LOS MESES 2026-2027) ───
             function renderGlobalListView() {
                 $globalListView.innerHTML = '';
@@ -2471,31 +3652,290 @@
                 renderMonthTabs();
                 renderMonthView();
                 renderGlobalListView();
+                renderAnalytics();
+                renderConfigStats();
             }
 
-            // ─── GESTOS TÁCTILES (SWIPE EN EL CALENDARIO) ──
+            // ─── TAB NAVIGATION (IOS TAB BAR) ───
+            function switchTab(index) {
+                if (index < 0) index = 0;
+                if (index > 2) index = 2;
+                currentTabIndex = index;
+
+                if ($screensTrack) {
+                    $screensTrack.style.transform = `translateX(-${index * (100 / 3)}%)`;
+                }
+
+                document.querySelectorAll('.ios-tab-item').forEach((btn, i) => {
+                    if (i === index) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+
+                if ($headerTitle) {
+                    if (index === 0) $headerTitle.textContent = 'Ftracker';
+                    else if (index === 1) $headerTitle.textContent = 'Analítica';
+                    else if (index === 2) $headerTitle.textContent = 'Configuración';
+                }
+
+                if ($viewToggle) {
+                    $viewToggle.style.display = index === 0 ? 'flex' : 'none';
+                }
+
+                if ($fabAdd) {
+                    $fabAdd.style.display = index === 0 ? 'flex' : 'none';
+                }
+
+                if (index === 1) renderAnalytics();
+                if (index === 2) renderConfigStats();
+            }
+
+            // ─── ANALYTICS RENDERER ────────────
+            function renderAnalytics() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const year = curr.year;
+                const month = curr.month;
+                const today = new Date();
+
+                let targetGastos = [];
+                let targetRetosDays = [];
+
+                if (analyticsPeriod === 'month') {
+                    targetGastos = gastos.filter(g => {
+                        const d = parseDate(g.date);
+                        return d && d.getFullYear() === year && d.getMonth() === month;
+                    });
+
+                    const daysInMonth = getDaysInMonth(year, month);
+                    let elapsed = daysInMonth;
+                    if (today.getFullYear() === year && today.getMonth() === month) {
+                        elapsed = today.getDate();
+                    }
+                    for (let d = 1; d <= elapsed; d++) {
+                        targetRetosDays.push(formatDateToInput(year, month, d));
+                    }
+                } else {
+                    targetGastos = gastos;
+                    const allDatesSet = new Set([...Object.keys(retosData), ...gastos.map(g => g.date)]);
+                    targetRetosDays = Array.from(allDatesSet);
+                    if (targetRetosDays.length === 0) {
+                        for (let d = 1; d <= today.getDate(); d++) {
+                            targetRetosDays.push(formatDateToInput(today.getFullYear(), today.getMonth(), d));
+                        }
+                    }
+                }
+
+                // Balance Retos
+                let dietaCount = 0;
+                let ejercicioCount = 0;
+                let totalPossibleRetos = targetRetosDays.length * 2;
+                let totalSuccessRetos = 0;
+
+                targetRetosDays.forEach(dateStr => {
+                    const r = retosData[dateStr];
+                    if (r) {
+                        if (r.dieta === 'si') {
+                            dietaCount++;
+                            totalSuccessRetos++;
+                        }
+                        if (r.ejercicio === 'si') {
+                            ejercicioCount++;
+                            totalSuccessRetos++;
+                        }
+                    }
+                });
+
+                const overallRate = totalPossibleRetos > 0 ? Math.round((totalSuccessRetos / totalPossibleRetos) * 100) : 0;
+                const totalDaysCount = Math.max(1, targetRetosDays.length);
+                const dietaRate = Math.round((dietaCount / totalDaysCount) * 100);
+                const ejercicioRate = Math.round((ejercicioCount / totalDaysCount) * 100);
+
+                if ($kpiRetosRate) $kpiRetosRate.textContent = `${overallRate}%`;
+                if ($kpiRetosCount) $kpiRetosCount.textContent = `${totalSuccessRetos} de ${totalPossibleRetos} éxitos`;
+
+                let tierClass = 'tier-bronze';
+                let badgeText = '🥉 En Marcha';
+                if (overallRate >= 80) {
+                    tierClass = 'tier-gold';
+                    badgeText = '🏆 Leyenda';
+                } else if (overallRate >= 60) {
+                    tierClass = 'tier-silver';
+                    badgeText = '🚀 Nivel Pro';
+                } else if (overallRate === 0) {
+                    tierClass = 'tier-neutral';
+                    badgeText = '🌱 Comenzando';
+                }
+
+                if ($analyticsRetosBadge) {
+                    $analyticsRetosBadge.className = `stats-badge ${tierClass}`;
+                    $analyticsRetosBadge.textContent = badgeText;
+                }
+
+                if ($analyticsRetosDetails) {
+                    $analyticsRetosDetails.innerHTML = `
+                        <div class="analytics-bar-item">
+                            <div class="analytics-bar-label-row">
+                                <span>🥗 Dieta Cumplida</span>
+                                <span>${dietaCount} días (${dietaRate}%)</span>
+                            </div>
+                            <div class="analytics-bar-track">
+                                <div class="analytics-bar-fill bar-green" style="width: ${dietaRate}%;"></div>
+                            </div>
+                        </div>
+                        <div class="analytics-bar-item">
+                            <div class="analytics-bar-label-row">
+                                <span>🏃 Ejercicio Realizado</span>
+                                <span>${ejercicioCount} días (${ejercicioRate}%)</span>
+                            </div>
+                            <div class="analytics-bar-track">
+                                <div class="analytics-bar-fill bar-orange" style="width: ${ejercicioRate}%;"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Balance Gastos
+                const totalSpent = targetGastos.reduce((sum, g) => sum + (parseFloat(g.amount) || 0), 0);
+                const avgPerDay = totalSpent / totalDaysCount;
+
+                if ($kpiGastosTotal) $kpiGastosTotal.textContent = formatCurrency(totalSpent);
+                if ($kpiGastosAvg) $kpiGastosAvg.textContent = `Promedio: ${formatCurrency(avgPerDay)} / día`;
+                if ($analyticsGastosCountBadge) $analyticsGastosCountBadge.textContent = `${targetGastos.length} ${targetGastos.length === 1 ? 'gasto' : 'gastos'}`;
+
+                const catTotals = {};
+                targetGastos.forEach(g => {
+                    catTotals[g.category] = (catTotals[g.category] || 0) + (parseFloat(g.amount) || 0);
+                });
+
+                const sortedCats = Object.keys(catTotals).sort((a, b) => catTotals[b] - catTotals[a]);
+
+                if ($analyticsGastosCategories) {
+                    if (sortedCats.length === 0) {
+                        $analyticsGastosCategories.innerHTML = `
+                            <div style="font-size:0.78rem;color:var(--text3);font-style:italic;padding:8px 0;">
+                                Sin gastos registrados en este periodo.
+                            </div>
+                        `;
+                    } else {
+                        $analyticsGastosCategories.innerHTML = sortedCats.map(cat => {
+                            const conf = EXPENSE_CAT_CONFIG[cat] || EXPENSE_CAT_CONFIG['Otro'];
+                            const catAmount = catTotals[cat];
+                            const pct = totalSpent > 0 ? Math.round((catAmount / totalSpent) * 100) : 0;
+                            return `
+                                <div class="analytics-bar-item">
+                                    <div class="analytics-bar-label-row">
+                                        <span>${conf.emoji} ${cat}</span>
+                                        <span><strong>${formatCurrency(catAmount)}</strong> <small style="color:var(--text3);">(${pct}%)</small></span>
+                                    </div>
+                                    <div class="analytics-bar-track">
+                                        <div class="analytics-bar-fill" style="width:${pct}%;background:${conf.color};"></div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+
+                // Top 3 Gastos
+                if ($analyticsTopGastosList) {
+                    const topGastos = targetGastos.slice().sort((a, b) => (parseFloat(b.amount) || 0) - (parseFloat(a.amount) || 0)).slice(0, 3);
+                    if (topGastos.length === 0) {
+                        $analyticsTopGastosList.innerHTML = `
+                            <div style="font-size:0.78rem;color:var(--text3);font-style:italic;padding:6px 0;">
+                                No hay gastos registrados en este periodo.
+                            </div>
+                        `;
+                    } else {
+                        $analyticsTopGastosList.innerHTML = topGastos.map(g => {
+                            const conf = EXPENSE_CAT_CONFIG[g.category] || EXPENSE_CAT_CONFIG['Otro'];
+                            return `
+                                <div class="analytics-top-item">
+                                    <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+                                        <span style="font-size:1.15rem;">${conf.emoji}</span>
+                                        <div style="min-width:0;">
+                                            <div style="font-weight:700;color:var(--text);">${escapeHTML(g.category)} ${g.note ? `<span style="font-weight:400;color:var(--text2);">• ${escapeHTML(g.note)}</span>` : ''}</div>
+                                            <div style="font-size:0.68rem;color:var(--text3);">${g.date}</div>
+                                        </div>
+                                    </div>
+                                    <strong style="color:var(--text);font-size:0.9rem;">${formatCurrency(g.amount)}</strong>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+            }
+
+            // ─── CONFIG RENDERER ───────────────
+            function renderConfigStats() {
+                if ($statActsCount) $statActsCount.textContent = activities.length;
+                if ($statRetosCount) $statRetosCount.textContent = Object.keys(retosData).length;
+                if ($statGastosCount) $statGastosCount.textContent = gastos.length;
+            }
+
+            // ─── GESTOS TÁCTILES: SWAP DE PESTAÑAS ──
+            let swipeTouchStartX = 0;
+            let swipeTouchStartY = 0;
+            let isSwipingScreens = false;
+
+            if ($screensViewport) {
+                $screensViewport.addEventListener('touchstart', (e) => {
+                    // Si el toque empieza dentro del calendario del mes o de las pestañas horizontales de meses, dejamos que esos componentes manejen su propio scroll/swipe
+                    if (e.target.closest('#monthHeroCard') || e.target.closest('.tabs-scroll-wrapper')) {
+                        isSwipingScreens = false;
+                        return;
+                    }
+                    swipeTouchStartX = e.changedTouches[0].screenX;
+                    swipeTouchStartY = e.changedTouches[0].screenY;
+                    isSwipingScreens = true;
+                }, { passive: true });
+
+                $screensViewport.addEventListener('touchend', (e) => {
+                    if (!isSwipingScreens) return;
+                    isSwipingScreens = false;
+                    if (e.target.closest('#monthHeroCard') || e.target.closest('.tabs-scroll-wrapper')) return;
+
+                    const endX = e.changedTouches[0].screenX;
+                    const endY = e.changedTouches[0].screenY;
+                    const diffX = endX - swipeTouchStartX;
+                    const diffY = endY - swipeTouchStartY;
+
+                    // Umbral de swipe horizontal
+                    if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.25) {
+                        if (diffX < 0) {
+                            // Swipe izquierda -> Siguiente pestaña
+                            if (currentTabIndex < 2) switchTab(currentTabIndex + 1);
+                        } else {
+                            // Swipe derecha -> Pestaña anterior
+                            if (currentTabIndex > 0) switchTab(currentTabIndex - 1);
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            // ─── GESTOS TÁCTILES (SWIPE EN EL CALENDARIO DE MES) ──
             let touchStartX = 0;
             let touchStartY = 0;
 
-            $monthHeroCard.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
-            }, { passive: true });
+            if ($monthHeroCard) {
+                $monthHeroCard.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
 
-            $monthHeroCard.addEventListener('touchend', (e) => {
-                const touchEndX = e.changedTouches[0].screenX;
-                const touchEndY = e.changedTouches[0].screenY;
-                const diffX = touchEndX - touchStartX;
-                const diffY = touchEndY - touchStartY;
+                $monthHeroCard.addEventListener('touchend', (e) => {
+                    const touchEndX = e.changedTouches[0].screenX;
+                    const touchEndY = e.changedTouches[0].screenY;
+                    const diffX = touchEndX - touchStartX;
+                    const diffY = touchEndY - touchStartY;
 
-                if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.4) {
-                    if (diffX < 0) {
-                        if (selectedMonthIndex < MONTHS_LIST.length - 1) changeMonth(selectedMonthIndex + 1);
-                    } else {
-                        if (selectedMonthIndex > 0) changeMonth(selectedMonthIndex - 1);
+                    if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.4) {
+                        if (diffX < 0) {
+                            if (selectedMonthIndex < MONTHS_LIST.length - 1) changeMonth(selectedMonthIndex + 1);
+                        } else {
+                            if (selectedMonthIndex > 0) changeMonth(selectedMonthIndex - 1);
+                        }
                     }
-                }
-            }, { passive: true });
+                }, { passive: true });
+            }
 
             // ─── MODAL ─────────────────────────
             function openModal(activity = null, prefilledDate = null) {
@@ -2662,6 +4102,7 @@
             });
 
             $activityForm.addEventListener('submit', saveActivity);
+            $expenseForm.addEventListener('submit', saveGasto);
             $confirmCancel.addEventListener('click', closeConfirm);
             $confirmOverlay.addEventListener('click', (e) => {
                 if (e.target === $confirmOverlay) closeConfirm();
@@ -2671,8 +4112,46 @@
                 if (id) deleteActivity(id);
             });
 
-            $btnExport.addEventListener('click', exportData);
-            $btnImport.addEventListener('click', () => $importFileInput.click());
+            // Tab navigation buttons
+            if ($tabNavHome) $tabNavHome.addEventListener('click', () => switchTab(0));
+            if ($tabNavAnalytics) $tabNavAnalytics.addEventListener('click', () => switchTab(1));
+            if ($tabNavConfig) $tabNavConfig.addEventListener('click', () => switchTab(2));
+
+            // Analytics period buttons
+            if ($btnPeriodMonth) {
+                $btnPeriodMonth.addEventListener('click', () => {
+                    analyticsPeriod = 'month';
+                    $btnPeriodMonth.classList.add('active');
+                    if ($btnPeriodAll) $btnPeriodAll.classList.remove('active');
+                    renderAnalytics();
+                });
+            }
+
+            if ($btnPeriodAll) {
+                $btnPeriodAll.addEventListener('click', () => {
+                    analyticsPeriod = 'all';
+                    $btnPeriodAll.classList.add('active');
+                    if ($btnPeriodMonth) $btnPeriodMonth.classList.remove('active');
+                    renderAnalytics();
+                });
+            }
+
+            // Config buttons
+            if ($btnConfigExport) $btnConfigExport.addEventListener('click', exportData);
+            if ($btnConfigImport) $btnConfigImport.addEventListener('click', () => $importFileInput.click());
+            if ($btnConfigReset) {
+                $btnConfigReset.addEventListener('click', () => {
+                    if (confirm('⚠️ ¿Estás seguro de que quieres borrar todos los datos (actividades, retos y gastos)? Esta acción no se puede deshacer.')) {
+                        activities = [];
+                        retosData = {};
+                        gastos = [];
+                        saveData();
+                        renderAll();
+                        showToast('🗑️ Todos los datos han sido reiniciados');
+                    }
+                });
+            }
+
             $importFileInput.addEventListener('change', (e) => {
                 if (e.target.files && e.target.files[0]) {
                     importData(e.target.files[0]);
@@ -2689,10 +4168,10 @@
                     e.preventDefault();
                     openModal();
                 }
-                if (e.key === 'ArrowLeft' && currentView === 'grid' && $modalOverlay.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft' && currentTabIndex === 0 && currentView === 'grid' && $modalOverlay.classList.contains('hidden')) {
                     if (selectedMonthIndex > 0) changeMonth(selectedMonthIndex - 1);
                 }
-                if (e.key === 'ArrowRight' && currentView === 'grid' && $modalOverlay.classList.contains('hidden')) {
+                if (e.key === 'ArrowRight' && currentTabIndex === 0 && currentView === 'grid' && $modalOverlay.classList.contains('hidden')) {
                     if (selectedMonthIndex < MONTHS_LIST.length - 1) changeMonth(selectedMonthIndex + 1);
                 }
             });
@@ -2700,6 +4179,7 @@
             // ─── INICIALIZACIÓN ────────────────
             loadData();
             selectedMonthIndex = 0; // Arranca en Agosto 2026
+            switchTab(0);
             renderAll();
         })();
     </script>
