@@ -1,0 +1,2708 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calendari Familiar 2026 - 2027</title>
+    <style>
+        :root {
+            --bg: #fbf8f4;
+            --surface: #ffffff;
+            --surface2: #f6f0e8;
+            --surface3: #ede5da;
+            --text: #2f271d;
+            --text2: #655848;
+            --text3: #9e8e7b;
+            --border: #e8ded2;
+            --border-focus: #ff9356;
+            --accent: #ff763b;
+            --accent-hover: #f06124;
+            --accent-light: #fff2eb;
+            --today-ring: #ff763b;
+            --selected-bg: #fff0e6;
+            --selected-border: #ff763b;
+            --shadow-xs: 0 1px 3px rgba(50, 35, 20, 0.05);
+            --shadow-sm: 0 2px 8px rgba(50, 35, 20, 0.07);
+            --shadow-md: 0 6px 20px rgba(50, 35, 20, 0.09);
+            --shadow-lg: 0 12px 36px rgba(50, 35, 20, 0.14);
+            --radius-lg: 20px;
+            --radius: 14px;
+            --radius-sm: 10px;
+            --radius-xs: 6px;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.45;
+            -webkit-font-smoothing: antialiased;
+            background-image:
+                radial-gradient(circle at 10% 0%, #fff9f0 0%, transparent 45%),
+                radial-gradient(circle at 90% 100%, #fdf5ea 0%, transparent 50%);
+            padding-bottom: 90px;
+        }
+
+        /* ─── APP WRAPPER ─────────────────── */
+        .app-container {
+            max-width: 680px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─── HEADER ──────────────────────── */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(251, 248, 244, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: var(--text);
+            user-select: none;
+        }
+
+        .logo-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffa352, #ff6b35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 10px rgba(255, 118, 59, 0.3);
+            flex-shrink: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ─── BUTTONS ─────────────────────── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 14px;
+            min-height: 38px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 3px 12px rgba(255, 118, 59, 0.35);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-icon {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border-color: transparent;
+            color: var(--text2);
+        }
+
+        .btn-ghost:active {
+            background: var(--surface2);
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            min-height: 28px;
+            font-size: 0.76rem;
+            border-radius: 999px;
+        }
+
+        .btn svg {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ─── VIEW TOGGLE (COMPACT) ───────── */
+        .view-toggle {
+            display: flex;
+            background: var(--surface2);
+            border-radius: 999px;
+            padding: 3px;
+            gap: 2px;
+            border: 1px solid var(--border);
+        }
+
+        .view-toggle .btn-view {
+            border: none;
+            background: transparent;
+            padding: 6px 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border-radius: 999px;
+            color: var(--text2);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .view-toggle .btn-view.active {
+            background: #ffffff;
+            color: var(--accent);
+            box-shadow: var(--shadow-xs);
+        }
+
+        /* ─── MONTH TABS SYSTEM ───────────── */
+        .month-tabs-bar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: sticky;
+            top: 55px;
+            z-index: 90;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .nav-arrow-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .nav-arrow-btn:active {
+            transform: scale(0.9);
+            background: var(--surface3);
+        }
+
+        .nav-arrow-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .tabs-scroll-wrapper {
+            flex: 1;
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 4px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .tabs-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .month-tab {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text2);
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .month-tab .tab-year {
+            font-size: 0.68rem;
+            opacity: 0.75;
+            font-weight: 600;
+        }
+
+        .month-tab:active {
+            transform: scale(0.95);
+        }
+
+        .month-tab.active {
+            background: #2f271d;
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 3px 12px rgba(47, 39, 29, 0.2);
+        }
+
+        .month-tab.active .tab-year {
+            opacity: 0.95;
+            color: #ffb188;
+        }
+
+        .month-tab.past-month {
+            opacity: 0.75;
+            background: rgba(237, 229, 218, 0.45);
+        }
+
+        .month-tab.past-month.active {
+            opacity: 1;
+            background: #2f271d;
+        }
+
+        .tabs-divider-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--text3);
+            padding: 4px 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-left: 1.5px dashed var(--border);
+            margin-left: 2px;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .tab-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .month-tab.active .tab-dot {
+            background: #ffa87d;
+        }
+
+        .btn-today-quick {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border: 1px solid rgba(255, 118, 59, 0.25);
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-today-quick:active {
+            transform: scale(0.92);
+        }
+
+        /* ─── MAIN CONTENT ────────────────── */
+        .main-content {
+            padding: 14px 14px 20px;
+            flex: 1;
+        }
+
+        /* ─── MONTH HERO CARD ─────────────── */
+        .month-hero-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 14px;
+            touch-action: pan-y;
+            user-select: none;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .month-hero-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding: 0 4px;
+        }
+
+        .month-hero-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            color: var(--text);
+            text-transform: capitalize;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .month-hero-year {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text3);
+        }
+
+        .month-swipe-hint {
+            font-size: 0.7rem;
+            color: var(--text3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* ─── CALENDAR GRID ───────────────── */
+        .weekdays-row {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .day-cell {
+            aspect-ratio: 1 / 1;
+            border-radius: var(--radius-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 2px 4px;
+            cursor: pointer;
+            position: relative;
+            background: #faf7f2;
+            border: 1.5px solid transparent;
+            transition: var(--transition);
+        }
+
+        .day-cell:active {
+            transform: scale(0.94);
+        }
+
+        .day-cell.empty {
+            background: transparent;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .day-num {
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .day-cell.today {
+            border-color: var(--today-ring);
+            background: #fff8f3;
+            box-shadow: 0 0 0 2px rgba(255, 118, 59, 0.15);
+        }
+
+        .day-cell.today .day-num {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .day-cell.selected {
+            background: var(--selected-bg);
+            border-color: var(--selected-border);
+            box-shadow: 0 2px 8px rgba(255, 118, 59, 0.2);
+        }
+
+        .day-cell.selected .day-num {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .day-dots {
+            display: flex;
+            gap: 2.5px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0 2px;
+            min-height: 7px;
+        }
+
+        .day-dot {
+            width: 5.5px;
+            height: 5.5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        .day-more-count {
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: var(--text2);
+            line-height: 1;
+        }
+
+        /* Mini reto badge in calendar day cell */
+        .day-reto-star {
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 0.65rem;
+            line-height: 1;
+        }
+
+        /* ─── MONTH ACTIVITIES LIST SECTION ─── */
+        .month-activities-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 14px;
+        }
+
+        .activities-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid var(--surface2);
+        }
+
+        .activities-title-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .activities-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.2px;
+        }
+
+        .activities-count-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: var(--surface2);
+            color: var(--text2);
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+
+        .active-filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 118, 59, 0.25);
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .active-filter-chip:active {
+            transform: scale(0.96);
+        }
+
+        .activity-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #faf7f2;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-card:active {
+            background: #f4eee4;
+            transform: scale(0.99);
+        }
+
+        .card-color-stripe {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+        }
+
+        .card-date-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 6px 8px;
+            min-width: 52px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .card-date-day {
+            font-size: 1.15rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .card-date-month {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--text3);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+            word-break: break-word;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .card-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .card-notes {
+            font-size: 0.72rem;
+            color: var(--text2);
+            display: block;
+            margin-top: 4px;
+            font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .btn-card-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-card-action:active {
+            transform: scale(0.9);
+            background: var(--surface2);
+        }
+
+        .btn-card-action svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .btn-card-action.reminder-act {
+            color: #1a73e8;
+            border-color: #d2e3fc;
+            background: #f8fbff;
+        }
+
+        .btn-card-action.reminder-act:hover,
+        .btn-card-action.reminder-act:active {
+            background: #e8f0fe;
+            border-color: #aecbfa;
+            color: #174ea6;
+        }
+
+        /* ─── RETOS SECTION ───────────────── */
+        .challenges-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .challenges-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid var(--surface2);
+        }
+
+        .challenges-title-group {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .challenges-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .challenges-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            line-height: 1.15;
+        }
+
+        .challenges-date-subtitle {
+            font-size: 0.72rem;
+            color: var(--text3);
+            font-weight: 600;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .challenges-score-badge {
+            font-size: 0.76rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface2);
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .challenges-score-badge.completed {
+            background: #e8f5e9;
+            color: #2e7d32;
+            box-shadow: 0 0 0 1.5px #a5d6a7;
+        }
+
+        .challenge-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 13px 14px;
+            background: #faf7f2;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .challenge-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .challenge-card.is-yes {
+            background: #f0f9f2;
+            border-color: #a5d6a7;
+        }
+
+        .challenge-card.is-no {
+            background: #fdf5f5;
+            border-color: #ffcdd2;
+        }
+
+        .challenge-main-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .challenge-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .challenge-emoji {
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+
+        .challenge-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .challenge-status-text {
+            font-size: 0.7rem;
+            color: var(--text3);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .challenge-card.is-yes .challenge-status-text {
+            color: #2e7d32;
+        }
+
+        .challenge-card.is-no .challenge-status-text {
+            color: #c62828;
+        }
+
+        .challenge-toggle-group {
+            display: flex;
+            background: var(--surface2);
+            border-radius: 999px;
+            padding: 3px;
+            gap: 3px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .challenge-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 14px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            border-radius: 999px;
+            color: var(--text3);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .challenge-btn:active {
+            transform: scale(0.92);
+        }
+
+        .challenge-btn.active-yes {
+            background: #2e7d32;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+        }
+
+        .challenge-btn.active-no {
+            background: #c62828;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(198, 40, 40, 0.25);
+        }
+
+        /* ─── GAMIFIED STATS PER RETO ─────── */
+        .challenge-gamified-stats {
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            padding: 9px 12px;
+            border: 1px solid rgba(232, 222, 210, 0.85);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .challenge-card.is-yes .challenge-gamified-stats {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #c8e6c9;
+        }
+
+        .stats-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.76rem;
+            color: var(--text);
+        }
+
+        .stats-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+
+        .stats-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 999px;
+            letter-spacing: 0.2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .stats-badge.tier-gold {
+            background: #fff8e1;
+            color: #b78103;
+            border: 1px solid #ffe082;
+        }
+
+        .stats-badge.tier-silver {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .stats-badge.tier-bronze {
+            background: #fff3e0;
+            color: #e65100;
+            border: 1px solid #ffcc80;
+        }
+
+        .stats-badge.tier-neutral {
+            background: var(--surface2);
+            color: var(--text3);
+            border: 1px solid var(--border);
+        }
+
+        .stats-progress-track {
+            width: 100%;
+            height: 7px;
+            background: var(--surface3);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stats-progress-bar {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stats-progress-bar.bar-gold {
+            background: linear-gradient(90deg, #ffb300, #ff8f00);
+            box-shadow: 0 0 8px rgba(255, 179, 0, 0.45);
+        }
+
+        .stats-progress-bar.bar-green {
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.35);
+        }
+
+        .stats-progress-bar.bar-orange {
+            background: linear-gradient(90deg, #ffa726, #ff7043);
+        }
+
+        .stats-progress-bar.bar-neutral {
+            background: var(--text3);
+            opacity: 0.3;
+        }
+
+        .stats-motivation {
+            font-size: 0.69rem;
+            font-weight: 700;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ─── EMPTY STATE ─────────────────── */
+        .empty-state {
+            text-align: center;
+            padding: 30px 16px;
+            color: var(--text3);
+        }
+
+        .empty-icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+            color: var(--text2);
+            margin-bottom: 12px;
+        }
+
+        /* ─── GLOBAL LIST VIEW (ALL MONTHS) ─ */
+        .all-months-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .global-month-group {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .global-month-group h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1.5px dashed var(--border);
+            text-transform: capitalize;
+        }
+
+        /* ─── FLOATING ACTION BUTTON (FAB) ── */
+        .fab {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff8c4b, #ff5722);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255, 87, 34, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 95;
+            transition: var(--transition);
+        }
+
+        .fab:active {
+            transform: scale(0.92);
+        }
+
+        .fab svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* ─── MODAL (BOTTOM SHEET ON MOBILE) ─ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 15, 10, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 200;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @media (min-width: 580px) {
+            .modal-overlay {
+                align-items: center;
+                padding: 20px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal {
+            background: var(--surface);
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+            width: 100%;
+            max-width: 540px;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid var(--border);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @media (min-width: 580px) {
+            .modal {
+                border-radius: var(--radius-lg);
+                padding: 24px;
+                animation: slideUpCenter 0.25s ease;
+            }
+
+            @keyframes slideUpCenter {
+                from {
+                    transform: translateY(30px) scale(0.97);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+            }
+        }
+
+        .modal-drag-handle {
+            width: 40px;
+            height: 4px;
+            border-radius: 999px;
+            background: var(--border);
+            margin: -6px auto 14px;
+        }
+
+        @media (min-width: 580px) {
+            .modal-drag-handle {
+                display: none;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            gap: 10px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .modal-close-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: var(--surface2);
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close-btn:active {
+            background: var(--surface3);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.82rem;
+            margin-bottom: 5px;
+            color: var(--text2);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            font-family: var(--font);
+            font-size: 1rem;
+            background: #faf8f5;
+            color: var(--text);
+            transition: var(--transition);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--border-focus);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255, 118, 59, 0.15);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            min-width: 110px;
+            padding: 12px 16px;
+            font-size: 0.88rem;
+        }
+
+        .btn-modal-gcal {
+            background: #e8f0fe;
+            color: #1a73e8;
+            border-color: #d2e3fc;
+            font-weight: 700;
+        }
+
+        .btn-modal-gcal:active {
+            background: #d2e3fc;
+        }
+
+        /* ─── TOAST ───────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2f271d;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 300;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            pointer-events: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" id="app">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-brand">
+                <div class="logo-badge">📅</div>
+                <span>Ftracker</span>
+            </div>
+            <div class="header-actions">
+                <div class="view-toggle" id="viewToggle">
+                    <button class="btn-view active" data-view="grid" id="btnGridView" aria-label="Vista mensual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14"
+                            height="14">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                        </svg>
+                        Mes
+                    </button>
+                    <button class="btn-view" data-view="list" id="btnListView" aria-label="Vista global">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14"
+                            height="14">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="21" y2="12" />
+                            <line x1="8" y1="18" x2="21" y2="18" />
+                            <circle cx="3.5" cy="6" r="1.5" />
+                            <circle cx="3.5" cy="12" r="1.5" />
+                            <circle cx="3.5" cy="18" r="1.5" />
+                        </svg>
+                        Todo
+                    </button>
+                </div>
+                <button class="btn btn-ghost btn-icon" id="btnExport" title="Exportar JSON" aria-label="Exportar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                </button>
+                <button class="btn btn-ghost btn-icon" id="btnImport" title="Importar JSON" aria-label="Importar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- MONTH TABS SYSTEM -->
+        <nav class="month-tabs-bar" id="monthTabsBar" aria-label="Navegación de meses">
+            <button class="nav-arrow-btn" id="btnPrevMonth" aria-label="Mes anterior" title="Mes anterior">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+            <div class="tabs-scroll-wrapper" id="tabsScrollWrapper">
+                <!-- Month tabs injected dynamically -->
+            </div>
+            <button class="nav-arrow-btn" id="btnNextMonth" aria-label="Mes siguiente" title="Mes siguiente">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+            <button class="btn-today-quick" id="btnTodayQuick" title="Ir a hoy">Hoy</button>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- VISTA MENSUAL: Cuadrícula de mes único + Lista de actividades + Bloque Retos -->
+            <div id="monthViewContainer">
+                <!-- CALENDARIO DEL MES -->
+                <section class="month-hero-card" id="monthHeroCard">
+                    <div class="month-hero-header">
+                        <div class="month-hero-title">
+                            <span id="heroMonthName">Agosto</span>
+                            <span class="month-hero-year" id="heroYear">2026</span>
+                        </div>
+                        <div class="month-swipe-hint">
+                            <span>↔ Desliza</span>
+                        </div>
+                    </div>
+                    <div class="weekdays-row">
+                        <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                    </div>
+                    <div class="days-grid" id="singleMonthGrid">
+                        <!-- Day cells -->
+                    </div>
+                </section>
+
+                <!-- LISTA DE ACTIVIDADES DEL MES SELECCIONADO -->
+                <section class="month-activities-section">
+                    <div class="activities-header">
+                        <div class="activities-title-group">
+                            <h2 class="activities-title" id="monthActivitiesHeading">Actividades de Agosto 2026</h2>
+                            <span class="activities-count-badge" id="monthActivitiesCount">0</span>
+                        </div>
+                        <button class="btn btn-sm btn-accent" id="btnAddForMonth">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12"
+                                height="12">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            Añadir
+                        </button>
+                    </div>
+
+                    <!-- Chip de filtro si hay un día concreto pulsado -->
+                    <div id="activeDayFilterChip" class="hidden"></div>
+
+                    <!-- Lista de tarjetas de actividades -->
+                    <div id="monthActivitiesList">
+                        <!-- Cards injected dynamically -->
+                    </div>
+                </section>
+
+                <!-- BLOQUE RETOS DIARIOS -->
+                <section class="challenges-section" id="challengesSection">
+                    <div class="challenges-header">
+                        <div class="challenges-title-group">
+                            <span class="challenges-icon">🎯</span>
+                            <div>
+                                <h2 class="challenges-title">Retos del Día</h2>
+                                <span class="challenges-date-subtitle" id="challengesDateSubtitle">16 de Agosto de
+                                    2026</span>
+                            </div>
+                        </div>
+                        <div class="challenges-score-badge" id="challengesScoreBadge">0/2</div>
+                    </div>
+
+                    <div class="challenges-list" id="challengesList">
+                        <!-- Challenge items injected dynamically -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- VISTA GLOBAL: Lista de todos los meses -->
+            <div id="globalListView" class="hidden all-months-list">
+                <!-- Injected dynamically -->
+            </div>
+        </main>
+
+        <!-- FAB (AÑADIR RÁPIDO) -->
+        <button class="fab" id="fabAdd" aria-label="Añadir actividad" title="Añadir actividad">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+        </button>
+
+        <!-- TOAST -->
+        <div class="toast" id="toast"></div>
+
+        <!-- MODAL: Crear / Editar Actividad -->
+        <div class="modal-overlay hidden" id="modalOverlay">
+            <div class="modal" id="modalActivity" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <div class="modal-drag-handle"></div>
+                <div class="modal-header">
+                    <h2 id="modalTitle">✨ Actividad</h2>
+                    <div class="modal-header-actions">
+                        <button type="submit" form="activityForm" class="btn btn-accent btn-sm" id="modalSave">💾
+                            Guardar</button>
+                        <button type="button" class="modal-close-btn" id="modalClose" aria-label="Cerrar">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <form id="activityForm" autocomplete="off">
+                    <input type="hidden" id="activityId" value="">
+                    <div class="form-group">
+                        <label for="actTitle">Título de la actividad</label>
+                        <input type="text" id="actTitle" placeholder="Ej: Cumpleaños de Ana" required maxlength="60">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="actStart">Fecha inicio</label>
+                            <input type="date" id="actStart" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="actEnd">Fecha fin <small
+                                    style="font-weight:400;color:var(--text3)">(opcional)</small></label>
+                            <input type="date" id="actEnd">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="actCategory">Categoría</label>
+                        <select id="actCategory">
+                            <option value="evento">🎉 Evento</option>
+                            <option value="cumple">🎂 Cumpleaños</option>
+                            <option value="deporte">⚽ Deporte</option>
+                            <option value="medico">🏥 Médico</option>
+                            <option value="vacaciones">✈️ Vacaciones</option>
+                            <option value="colegio">📚 Colegio</option>
+                            <option value="musica">🎵 Música</option>
+                            <option value="trabajo">💼 Trabajo</option>
+                            <option value="otro">📌 Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="actNotes">Notas <small
+                                style="font-weight:400;color:var(--text3)">(opcional)</small></label>
+                        <textarea id="actNotes" rows="2" maxlength="200"
+                            placeholder="Detalles o recordatorios..."></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-ghost" id="modalCancel">Cancelar</button>
+                        <button type="button" class="btn btn-modal-gcal" id="modalReminder"
+                            title="Crear recordatorio en Google Calendar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16"
+                                height="16">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                            </svg>
+                            Recordatorio
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL: Confirmar Eliminación -->
+        <div class="modal-overlay hidden" id="confirmOverlay">
+            <div class="modal" style="max-width:380px;text-align:center;" role="dialog" aria-modal="true">
+                <div style="padding: 10px 0;">
+                    <p style="font-size:2.6rem;margin-bottom:6px;">🗑️</p>
+                    <h3 style="font-size:1.15rem;margin-bottom:6px;color:var(--text);">¿Eliminar actividad?</h3>
+                    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:18px;">Esta acción no se puede
+                        deshacer.</p>
+                    <input type="hidden" id="confirmDeleteId" value="">
+                    <div class="modal-actions" style="justify-content:center;">
+                        <button class="btn btn-ghost" id="confirmCancel">Cancelar</button>
+                        <button class="btn btn-accent" id="confirmOk"
+                            style="background:#e74c3c;border-color:#e74c3c;">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="importFileInput" accept=".json" style="display:none;">
+
+    <script>
+        (function () {
+            // ─── CONSTANTES Y TIMELINE DE MESES ───
+            const STORAGE_KEY = 'calendario_familiar_2026_data';
+            const RETOS_STORAGE_KEY = 'calendario_familiar_retos_data';
+
+            const MONTHS_ES = [
+                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+            ];
+            const MONTHS_SHORT = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            const WEEKDAYS_SHORT = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+
+            // Secuencia de meses: Agosto 2026 -> Dic 2026 -> Todo 2027 -> Meses pasados de 2026 al final
+            const MONTHS_LIST = [
+                // 2026: A partir de Agosto
+                { year: 2026, month: 7, label: 'Ago', yearLabel: "'26", isPast: false },
+                { year: 2026, month: 8, label: 'Sep', yearLabel: "'26", isPast: false },
+                { year: 2026, month: 9, label: 'Oct', yearLabel: "'26", isPast: false },
+                { year: 2026, month: 10, label: 'Nov', yearLabel: "'26", isPast: false },
+                { year: 2026, month: 11, label: 'Dic', yearLabel: "'26", isPast: false },
+
+                // 2027: Año completo
+                { year: 2027, month: 0, label: 'Ene', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 1, label: 'Feb', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 2, label: 'Mar', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 3, label: 'Abr', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 4, label: 'May', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 5, label: 'Jun', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 6, label: 'Jul', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 7, label: 'Ago', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 8, label: 'Sep', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 9, label: 'Oct', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 10, label: 'Nov', yearLabel: "'27", isPast: false },
+                { year: 2027, month: 11, label: 'Dic', yearLabel: "'27", isPast: false },
+
+                // Meses pasados de 2026 (a la derecha / al final)
+                { year: 2026, month: 0, label: 'Ene', yearLabel: "'26", isPast: true },
+                { year: 2026, month: 1, label: 'Feb', yearLabel: "'26", isPast: true },
+                { year: 2026, month: 2, label: 'Mar', yearLabel: "'26", isPast: true },
+                { year: 2026, month: 3, label: 'Abr', yearLabel: "'26", isPast: true },
+                { year: 2026, month: 4, label: 'May', yearLabel: "'26", isPast: true },
+                { year: 2026, month: 5, label: 'Jun', yearLabel: "'26", isPast: true },
+                { year: 2026, month: 6, label: 'Jul', yearLabel: "'26", isPast: true }
+            ];
+
+            const categoryConfig = {
+                cumple: { color: '#ff6b6b', bg: '#fff0f0', emoji: '🎂', label: 'Cumpleaños' },
+                deporte: { color: '#2ec4b6', bg: '#e6faf8', emoji: '⚽', label: 'Deporte' },
+                medico: { color: '#ff8e72', bg: '#fff4f0', emoji: '🏥', label: 'Médico' },
+                vacaciones: { color: '#ffb347', bg: '#fff8ee', emoji: '✈️', label: 'Vacaciones' },
+                colegio: { color: '#7c6ff7', bg: '#f2f0ff', emoji: '📚', label: 'Colegio' },
+                evento: { color: '#48bb78', bg: '#eef9f2', emoji: '🎉', label: 'Evento' },
+                musica: { color: '#f06595', bg: '#fff0f5', emoji: '🎵', label: 'Música' },
+                trabajo: { color: '#4a90e2', bg: '#edf4fc', emoji: '💼', label: 'Trabajo' },
+                otro: { color: '#9e8e7b', bg: '#f5f0e9', emoji: '📌', label: 'Otro' }
+            };
+
+            const defaultActivities = [];
+
+            let activities = [];
+            let retosData = {}; // Formato: { "YYYY-MM-DD": { dieta: "si"|"no"|null, ejercicio: "si"|"no"|null } }
+            let currentView = 'grid';
+            let selectedMonthIndex = 0; // Por defecto Agosto 2026
+            let selectedDay = null; // Si es null, usa el día actual o 1 para los retos
+
+            // ─── DOM REFS ──────────────────────
+            const $tabsScrollWrapper = document.getElementById('tabsScrollWrapper');
+            const $btnPrevMonth = document.getElementById('btnPrevMonth');
+            const $btnNextMonth = document.getElementById('btnNextMonth');
+            const $btnTodayQuick = document.getElementById('btnTodayQuick');
+            const $monthViewContainer = document.getElementById('monthViewContainer');
+            const $globalListView = document.getElementById('globalListView');
+            const $monthHeroCard = document.getElementById('monthHeroCard');
+            const $heroMonthName = document.getElementById('heroMonthName');
+            const $heroYear = document.getElementById('heroYear');
+            const $singleMonthGrid = document.getElementById('singleMonthGrid');
+            const $monthActivitiesHeading = document.getElementById('monthActivitiesHeading');
+            const $monthActivitiesCount = document.getElementById('monthActivitiesCount');
+            const $activeDayFilterChip = document.getElementById('activeDayFilterChip');
+            const $monthActivitiesList = document.getElementById('monthActivitiesList');
+            const $challengesDateSubtitle = document.getElementById('challengesDateSubtitle');
+            const $challengesScoreBadge = document.getElementById('challengesScoreBadge');
+            const $challengesList = document.getElementById('challengesList');
+            const $btnAddForMonth = document.getElementById('btnAddForMonth');
+            const $btnGridView = document.getElementById('btnGridView');
+            const $btnListView = document.getElementById('btnListView');
+            const $fabAdd = document.getElementById('fabAdd');
+            const $modalOverlay = document.getElementById('modalOverlay');
+            const $modalClose = document.getElementById('modalClose');
+            const $modalCancel = document.getElementById('modalCancel');
+            const $modalReminder = document.getElementById('modalReminder');
+            const $modalSave = document.getElementById('modalSave');
+            const $modalTitle = document.getElementById('modalTitle');
+            const $activityForm = document.getElementById('activityForm');
+            const $activityId = document.getElementById('activityId');
+            const $actTitle = document.getElementById('actTitle');
+            const $actStart = document.getElementById('actStart');
+            const $actEnd = document.getElementById('actEnd');
+            const $actCategory = document.getElementById('actCategory');
+            const $actNotes = document.getElementById('actNotes');
+            const $toast = document.getElementById('toast');
+            const $confirmOverlay = document.getElementById('confirmOverlay');
+            const $confirmDeleteId = document.getElementById('confirmDeleteId');
+            const $confirmCancel = document.getElementById('confirmCancel');
+            const $confirmOk = document.getElementById('confirmOk');
+            const $btnExport = document.getElementById('btnExport');
+            const $btnImport = document.getElementById('btnImport');
+            const $importFileInput = document.getElementById('importFileInput');
+
+            function getCatConfig(cat) {
+                return categoryConfig[cat] || categoryConfig['otro'];
+            }
+
+            function generateId() {
+                return 'act_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+            }
+
+            function parseDate(str) {
+                if (!str) return null;
+                const parts = str.split('-');
+                return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+            }
+
+            function padZero(num) {
+                return num < 10 ? '0' + num : '' + num;
+            }
+
+            function formatDateToInput(year, month, day) {
+                return `${year}-${padZero(month + 1)}-${padZero(day)}`;
+            }
+
+            function formatDateRange(startStr, endStr) {
+                const s = parseDate(startStr);
+                if (!s) return startStr;
+                const sDay = s.getDate();
+                const sMon = MONTHS_SHORT[s.getMonth()];
+                const sYear = s.getFullYear();
+                if (endStr && endStr !== startStr) {
+                    const e = parseDate(endStr);
+                    if (e) {
+                        const eDay = e.getDate();
+                        const eMon = MONTHS_SHORT[e.getMonth()];
+                        const eYear = e.getFullYear();
+                        if (sYear === eYear && s.getMonth() === e.getMonth()) {
+                            return `${sDay} – ${eDay} ${sMon} '${String(sYear).slice(-2)}`;
+                        }
+                        if (sYear === eYear) {
+                            return `${sDay} ${sMon} – ${eDay} ${eMon} '${String(sYear).slice(-2)}`;
+                        }
+                        return `${sDay} ${sMon} '${String(sYear).slice(-2)} – ${eDay} ${eMon} '${String(eYear).slice(-2)}`;
+                    }
+                }
+                return `${sDay} ${sMon} '${String(sYear).slice(-2)}`;
+            }
+
+            function getDaysInMonth(year, month) {
+                return new Date(year, month + 1, 0).getDate();
+            }
+
+            function getFirstDayOfMonth(year, month) {
+                let day = new Date(year, month, 1).getDay();
+                return day === 0 ? 6 : day - 1;
+            }
+
+            function sameDay(d1, d2) {
+                return d1.getFullYear() === d2.getFullYear() &&
+                    d1.getMonth() === d2.getMonth() &&
+                    d1.getDate() === d2.getDate();
+            }
+
+            function activitySpansDay(act, year, month, day) {
+                const target = new Date(year, month, day);
+                const start = parseDate(act.startDate);
+                if (!start) return false;
+                if (sameDay(start, target)) return true;
+                if (act.endDate) {
+                    const end = parseDate(act.endDate);
+                    if (end && start <= target && target <= end) return true;
+                }
+                return false;
+            }
+
+            function getActivitiesForDay(year, month, day) {
+                return activities.filter(act => activitySpansDay(act, year, month, day));
+            }
+
+            function getActivitiesForMonth(year, month) {
+                return activities.filter(act => {
+                    const s = parseDate(act.startDate);
+                    if (!s) return false;
+                    if (s.getFullYear() === year && s.getMonth() === month) return true;
+                    if (act.endDate) {
+                        const e = parseDate(act.endDate);
+                        if (!e) return false;
+                        const mStart = new Date(year, month, 1);
+                        const mEnd = new Date(year, month + 1, 0);
+                        return s <= mEnd && e >= mStart;
+                    }
+                    return false;
+                });
+            }
+
+            function escapeHTML(str) {
+                const div = document.createElement('div');
+                div.textContent = str || '';
+                return div.innerHTML;
+            }
+
+            // ─── RETOS HELPERS ─────────────────
+            function getRetosForDate(dateStr) {
+                if (!retosData[dateStr]) {
+                    return { dieta: null, ejercicio: null };
+                }
+                return retosData[dateStr];
+            }
+
+            function setReto(dateStr, retoKey, value) {
+                if (!retosData[dateStr]) {
+                    retosData[dateStr] = { dieta: null, ejercicio: null };
+                }
+                // Si pulsa sobre el valor actual ya activo, lo desmarca (null)
+                if (retosData[dateStr][retoKey] === value) {
+                    retosData[dateStr][retoKey] = null;
+                } else {
+                    retosData[dateStr][retoKey] = value;
+                }
+                saveData();
+                renderChallengesSection();
+                renderSingleMonthDays(); // Actualizar indicadores en el calendario
+
+                const currentRetos = retosData[dateStr];
+                if (currentRetos.dieta === 'si' && currentRetos.ejercicio === 'si') {
+                    showToast('🎉 ¡Genial! Retos del día cumplidos al 100%');
+                }
+            }
+
+            // ─── GOOGLE CALENDAR / RECORDATORIO ─
+            function openGoogleCalendarReminder(act) {
+                if (!act || !act.startDate) {
+                    showToast('⚠️ Faltan datos para crear el recordatorio');
+                    return;
+                }
+                const catConf = getCatConfig(act.category || 'evento');
+                const title = `${catConf.emoji} ${act.title || 'Actividad'}`;
+
+                const s = parseDate(act.startDate);
+                if (!s) return;
+
+                const sYear = s.getFullYear();
+                const sMon = padZero(s.getMonth() + 1);
+                const sDay = padZero(s.getDate());
+                const startIso = `${sYear}${sMon}${sDay}`;
+
+                let endIso;
+                if (act.endDate && act.endDate !== act.startDate) {
+                    const e = parseDate(act.endDate);
+                    if (e) {
+                        const nextDay = new Date(e.getFullYear(), e.getMonth(), e.getDate() + 1);
+                        endIso = `${nextDay.getFullYear()}${padZero(nextDay.getMonth() + 1)}${padZero(nextDay.getDate())}`;
+                    } else {
+                        const nextDay = new Date(s.getFullYear(), s.getMonth(), s.getDate() + 1);
+                        endIso = `${nextDay.getFullYear()}${padZero(nextDay.getMonth() + 1)}${padZero(nextDay.getDate())}`;
+                    }
+                } else {
+                    const nextDay = new Date(s.getFullYear(), s.getMonth(), s.getDate() + 1);
+                    endIso = `${nextDay.getFullYear()}${padZero(nextDay.getMonth() + 1)}${padZero(nextDay.getDate())}`;
+                }
+
+                let details = `Categoría: ${catConf.label}`;
+                if (act.notes && act.notes.trim()) {
+                    details += `\nNotas: ${act.notes.trim()}`;
+                }
+                details += `\n\n📌 Guardado desde Calendario Familiar`;
+
+                const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&details=${encodeURIComponent(details)}`;
+
+                window.open(gCalUrl, '_blank');
+                showToast('📅 Abriendo Google Calendar...');
+            }
+
+            // ─── STORAGE ───────────────────────
+            function loadData() {
+                try {
+                    const rawActs = localStorage.getItem(STORAGE_KEY);
+                    if (rawActs) {
+                        const parsed = JSON.parse(rawActs);
+                        if (Array.isArray(parsed)) {
+                            activities = parsed;
+                        } else if (parsed && typeof parsed === 'object' && Array.isArray(parsed.activities)) {
+                            activities = parsed.activities;
+                            if (parsed.retos) retosData = parsed.retos;
+                        }
+                    } else {
+                        activities = [];
+                        saveData();
+                    }
+
+                    // Limpiar actividades dummy preexistentes de prueba si las hubiera
+                    const dummyIds = new Set(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11']);
+                    const filteredActs = activities.filter(a => !dummyIds.has(a.id));
+                    if (filteredActs.length !== activities.length) {
+                        activities = filteredActs;
+                        saveData();
+                    }
+
+                    const rawRetos = localStorage.getItem(RETOS_STORAGE_KEY);
+                    if (rawRetos) {
+                        retosData = JSON.parse(rawRetos) || {};
+                    }
+                } catch (e) {
+                    activities = [];
+                    retosData = {};
+                    saveData();
+                }
+            }
+
+            function saveData() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
+                    localStorage.setItem(RETOS_STORAGE_KEY, JSON.stringify(retosData));
+                } catch (e) {
+                    showToast('⚠️ No se pudo guardar en almacenamiento local');
+                }
+            }
+
+            function exportData() {
+                const exportObj = {
+                    activities: activities,
+                    retos: retosData,
+                    exportedAt: new Date().toISOString()
+                };
+                const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `calendario_familiar_2026_2027.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                showToast('✅ Datos y retos exportados');
+            }
+
+            function importData(file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (Array.isArray(data)) {
+                            activities = data;
+                        } else if (data && typeof data === 'object') {
+                            if (Array.isArray(data.activities)) activities = data.activities;
+                            if (data.retos && typeof data.retos === 'object') retosData = data.retos;
+                        } else {
+                            throw new Error('Formato inválido');
+                        }
+                        saveData();
+                        renderAll();
+                        showToast(`✅ Datos importados correctamente`);
+                    } catch (err) {
+                        showToast('❌ Archivo JSON no válido');
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            // ─── TOAST ─────────────────────────
+            let toastTimer;
+            function showToast(msg) {
+                clearTimeout(toastTimer);
+                $toast.textContent = msg;
+                $toast.classList.add('show');
+                toastTimer = setTimeout(() => {
+                    $toast.classList.remove('show');
+                }, 2200);
+            }
+
+            // ─── RENDER: PESTAÑAS DE MESES ──────
+            function renderMonthTabs() {
+                $tabsScrollWrapper.innerHTML = '';
+                let hasShownPastDivider = false;
+
+                MONTHS_LIST.forEach((item, index) => {
+                    if (item.isPast && !hasShownPastDivider) {
+                        hasShownPastDivider = true;
+                        const divider = document.createElement('div');
+                        divider.className = 'tabs-divider-label';
+                        divider.textContent = '◀ Pasados';
+                        $tabsScrollWrapper.appendChild(divider);
+                    }
+
+                    const tab = document.createElement('button');
+                    tab.className = `month-tab ${index === selectedMonthIndex ? 'active' : ''} ${item.isPast ? 'past-month' : ''}`;
+                    tab.setAttribute('data-index', index);
+
+                    const monthActs = getActivitiesForMonth(item.year, item.month);
+                    const hasActs = monthActs.length > 0;
+
+                    tab.innerHTML = `
+                        <span>${item.label}</span>
+                        <span class="tab-year">${item.yearLabel}</span>
+                        ${hasActs ? '<span class="tab-dot"></span>' : ''}
+                    `;
+
+                    tab.addEventListener('click', () => {
+                        changeMonth(index);
+                    });
+
+                    $tabsScrollWrapper.appendChild(tab);
+                });
+
+                setTimeout(() => {
+                    const activeTab = $tabsScrollWrapper.querySelector('.month-tab.active');
+                    if (activeTab) {
+                        const wrapperWidth = $tabsScrollWrapper.clientWidth;
+                        const tabOffset = activeTab.offsetLeft;
+                        const tabWidth = activeTab.offsetWidth;
+                        $tabsScrollWrapper.scrollTo({
+                            left: tabOffset - (wrapperWidth / 2) + (tabWidth / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 50);
+            }
+
+            function changeMonth(index) {
+                if (index < 0) index = 0;
+                if (index >= MONTHS_LIST.length) index = MONTHS_LIST.length - 1;
+                selectedMonthIndex = index;
+                selectedDay = null;
+                renderMonthTabs();
+                renderMonthView();
+            }
+
+            // ─── RENDER: CUADRÍCULA DE MES ÚNICO ──
+            function renderSingleMonthDays() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const year = curr.year;
+                const month = curr.month;
+
+                $singleMonthGrid.innerHTML = '';
+                const today = new Date();
+                const daysInMonth = getDaysInMonth(year, month);
+                const firstDay = getFirstDayOfMonth(year, month);
+
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'day-cell empty';
+                    $singleMonthGrid.appendChild(emptyCell);
+                }
+
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'day-cell';
+                    const cellDate = new Date(year, month, d);
+                    const dateStr = formatDateToInput(year, month, d);
+
+                    if (sameDay(cellDate, today)) {
+                        cell.classList.add('today');
+                    }
+
+                    if (selectedDay === d) {
+                        cell.classList.add('selected');
+                    }
+
+                    // Indicador de retos completados
+                    const dayRetos = getRetosForDate(dateStr);
+                    if (dayRetos.dieta === 'si' && dayRetos.ejercicio === 'si') {
+                        const star = document.createElement('span');
+                        star.className = 'day-reto-star';
+                        star.textContent = '⭐';
+                        star.title = '¡Retos completados!';
+                        cell.appendChild(star);
+                    }
+
+                    const acts = getActivitiesForDay(year, month, d);
+
+                    const numSpan = document.createElement('span');
+                    numSpan.className = 'day-num';
+                    numSpan.textContent = d;
+                    cell.appendChild(numSpan);
+
+                    const dotsContainer = document.createElement('div');
+                    dotsContainer.className = 'day-dots';
+
+                    if (acts.length > 0) {
+                        const maxDots = 3;
+                        const uniqueCats = [...new Set(acts.map(a => a.category))];
+                        const shown = uniqueCats.slice(0, maxDots);
+                        shown.forEach(cat => {
+                            const dot = document.createElement('span');
+                            dot.className = 'day-dot';
+                            dot.style.backgroundColor = getCatConfig(cat).color;
+                            dotsContainer.appendChild(dot);
+                        });
+
+                        if (acts.length > maxDots) {
+                            const more = document.createElement('span');
+                            more.className = 'day-more-count';
+                            more.textContent = '+' + (acts.length - maxDots);
+                            dotsContainer.appendChild(more);
+                        }
+                    }
+                    cell.appendChild(dotsContainer);
+
+                    cell.addEventListener('click', () => {
+                        if (selectedDay === d) {
+                            selectedDay = null;
+                        } else {
+                            selectedDay = d;
+                        }
+                        renderMonthView();
+                    });
+
+                    $singleMonthGrid.appendChild(cell);
+                }
+            }
+
+            function renderMonthView() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                $heroMonthName.textContent = MONTHS_ES[curr.month];
+                $heroYear.textContent = curr.year;
+
+                renderSingleMonthDays();
+                renderMonthActivitiesList();
+                renderChallengesSection();
+            }
+
+            // ─── RENDER: LISTA DE ACTIVIDADES DEL MES ─
+            function renderMonthActivitiesList() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const year = curr.year;
+                const month = curr.month;
+
+                let monthActs = getActivitiesForMonth(year, month);
+                $monthActivitiesHeading.textContent = `Actividades de ${MONTHS_ES[month]} ${year}`;
+
+                if (selectedDay !== null) {
+                    $activeDayFilterChip.classList.remove('hidden');
+                    $activeDayFilterChip.innerHTML = `
+                        <span>📅 Mostrando solo día ${selectedDay}</span>
+                        <span style="font-size:1.1rem;line-height:0.8;">×</span>
+                    `;
+                    $activeDayFilterChip.onclick = () => {
+                        selectedDay = null;
+                        renderMonthView();
+                    };
+                    monthActs = monthActs.filter(act => activitySpansDay(act, year, month, selectedDay));
+                } else {
+                    $activeDayFilterChip.classList.add('hidden');
+                }
+
+                $monthActivitiesCount.textContent = `${monthActs.length} ${monthActs.length === 1 ? 'actividad' : 'actividades'}`;
+                $monthActivitiesList.innerHTML = '';
+
+                if (monthActs.length === 0) {
+                    $monthActivitiesList.innerHTML = `
+                        <div class="empty-state">
+                            <span class="empty-icon">🏖️</span>
+                            <p>${selectedDay ? `No hay actividades para el ${selectedDay} de ${MONTHS_ES[month]} ${year}.` : `No hay actividades para ${MONTHS_ES[month]} ${year}.`}</p>
+                            <button class="btn btn-sm btn-accent" id="btnEmptyAdd">
+                                + Añadir para este ${selectedDay ? 'día' : 'mes'}
+                            </button>
+                        </div>
+                    `;
+                    const emptyBtn = $monthActivitiesList.querySelector('#btnEmptyAdd');
+                    if (emptyBtn) {
+                        emptyBtn.addEventListener('click', () => {
+                            const defaultDate = selectedDay
+                                ? formatDateToInput(year, month, selectedDay)
+                                : formatDateToInput(year, month, 1);
+                            openModal(null, defaultDate);
+                        });
+                    }
+                    return;
+                }
+
+                monthActs.sort((a, b) => a.startDate.localeCompare(b.startDate));
+
+                monthActs.forEach(act => {
+                    const catConf = getCatConfig(act.category);
+                    const sDate = parseDate(act.startDate);
+                    const sDay = sDate ? sDate.getDate() : '--';
+                    const sMon = sDate ? MONTHS_SHORT[sDate.getMonth()] : '';
+
+                    const card = document.createElement('div');
+                    card.className = 'activity-card';
+                    card.innerHTML = `
+                        <div class="card-color-stripe" style="background:${catConf.color};"></div>
+                        <div class="card-date-box">
+                            <span class="card-date-day">${sDay}</span>
+                            <span class="card-date-month">${sMon}</span>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">${escapeHTML(act.title)}</div>
+                            <div class="card-meta">
+                                <span class="card-badge" style="background:${catConf.bg};color:${catConf.color};">
+                                    ${catConf.emoji} ${catConf.label}
+                                </span>
+                                ${act.endDate && act.endDate !== act.startDate ? `<span style="font-size:0.72rem;color:var(--text3);font-weight:600;">Hasta ${formatDateRange(act.startDate, act.endDate)}</span>` : ''}
+                            </div>
+                            ${act.notes ? `<span class="card-notes">💬 ${escapeHTML(act.notes)}</span>` : ''}
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-card-action reminder-act" data-id="${act.id}" title="Crear recordatorio en Google Calendar" aria-label="Crear recordatorio">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                            </button>
+                            <button class="btn-card-action edit-act" data-id="${act.id}" title="Editar" aria-label="Editar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <button class="btn-card-action delete-act" data-id="${act.id}" title="Eliminar" aria-label="Eliminar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                            </button>
+                        </div>
+                    `;
+                    $monthActivitiesList.appendChild(card);
+                });
+
+                $monthActivitiesList.querySelectorAll('.reminder-act').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        const act = activities.find(a => a.id === id);
+                        if (act) openGoogleCalendarReminder(act);
+                    });
+                });
+
+                $monthActivitiesList.querySelectorAll('.edit-act').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        const act = activities.find(a => a.id === id);
+                        if (act) openModal(act);
+                    });
+                });
+
+                $monthActivitiesList.querySelectorAll('.delete-act').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        openConfirmDelete(id);
+                    });
+                });
+            }
+
+            // ─── RENDER: RETOS DEL DÍA ─────────
+            function renderChallengesSection() {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                const year = curr.year;
+                const month = curr.month;
+
+                // Determinar el día objetivo: si hay selectedDay se usa ese, sino hoy (si coincide mes/año), sino el día 1
+                const today = new Date();
+                let targetDay = selectedDay;
+                if (!targetDay) {
+                    if (today.getFullYear() === year && today.getMonth() === month) {
+                        targetDay = today.getDate();
+                    } else {
+                        targetDay = 1;
+                    }
+                }
+
+                const dateStr = formatDateToInput(year, month, targetDay);
+                const dayRetos = getRetosForDate(dateStr);
+
+                $challengesDateSubtitle.textContent = `${targetDay} de ${MONTHS_ES[month]} de ${year}`;
+
+                // Calcular retos completados
+                let completedCount = 0;
+                if (dayRetos.dieta === 'si') completedCount++;
+                if (dayRetos.ejercicio === 'si') completedCount++;
+
+                $challengesScoreBadge.textContent = `${completedCount}/2`;
+                if (completedCount === 2) {
+                    $challengesScoreBadge.classList.add('completed');
+                    $challengesScoreBadge.innerHTML = `2/2 ⭐ ¡Cumplido!`;
+                } else {
+                    $challengesScoreBadge.classList.remove('completed');
+                    $challengesScoreBadge.textContent = `${completedCount}/2 retos`;
+                }
+
+                const challengesConfig = [
+                    {
+                        key: 'dieta',
+                        title: 'Dieta Cumplida',
+                        emoji: '🥗',
+                        desc: 'Alimentación saludable y equilibrada'
+                    },
+                    {
+                        key: 'ejercicio',
+                        title: 'Ejercicio Realizado',
+                        emoji: '🏃',
+                        desc: 'Entrenamiento o actividad física del día'
+                    }
+                ];
+
+                $challengesList.innerHTML = '';
+
+                challengesConfig.forEach(ch => {
+                    const status = dayRetos[ch.key]; // 'si', 'no', o null
+                    const card = document.createElement('div');
+                    card.className = `challenge-card ${status === 'si' ? 'is-yes' : ''} ${status === 'no' ? 'is-no' : ''}`;
+
+                    let statusLabel = 'Sin marcar hoy';
+                    if (status === 'si') statusLabel = '✅ Cumplido hoy';
+                    if (status === 'no') statusLabel = '❌ No cumplido hoy';
+
+                    // Calcular días transcurridos hasta hoy en este mes
+                    const daysInMonth = getDaysInMonth(year, month);
+                    let elapsedDays = daysInMonth;
+
+                    if (today.getFullYear() === year && today.getMonth() === month) {
+                        elapsedDays = today.getDate();
+                    } else if (year > today.getFullYear() || (year === today.getFullYear() && month > today.getMonth())) {
+                        elapsedDays = Math.max(1, targetDay || 1);
+                    }
+
+                    let exitosCount = 0;
+                    for (let d = 1; d <= elapsedDays; d++) {
+                        const dStr = formatDateToInput(year, month, d);
+                        if (retosData[dStr] && retosData[dStr][ch.key] === 'si') {
+                            exitosCount++;
+                        }
+                    }
+
+                    const rate = elapsedDays > 0 ? Math.round((exitosCount / elapsedDays) * 100) : 0;
+
+                    let tierClass = 'tier-bronze';
+                    let barClass = 'bar-orange';
+                    let motivationMsg = '🎯 ¡Cada día suma! Sigue construyendo tu hábito.';
+                    let badgeIcon = '🥉';
+
+                    if (rate >= 80) {
+                        tierClass = 'tier-gold';
+                        barClass = 'bar-gold';
+                        badgeIcon = '🏆';
+                        motivationMsg = '⭐ ¡Nivel Leyenda! Imparable este mes.';
+                    } else if (rate >= 60) {
+                        tierClass = 'tier-silver';
+                        barClass = 'bar-green';
+                        badgeIcon = '🚀';
+                        motivationMsg = '💪 ¡Gran ritmo! Más de la mitad completada.';
+                    } else if (rate > 0) {
+                        tierClass = 'tier-bronze';
+                        barClass = 'bar-orange';
+                        badgeIcon = '⚡';
+                        motivationMsg = '🎯 ¡Constancia! Sigue sumando victorias.';
+                    } else {
+                        tierClass = 'tier-neutral';
+                        barClass = 'bar-neutral';
+                        badgeIcon = '🌱';
+                        motivationMsg = '✨ ¡Hoy es un buen día para sumar el primer éxito!';
+                    }
+
+                    card.innerHTML = `
+                        <div class="challenge-main-row">
+                            <div class="challenge-info">
+                                <span class="challenge-emoji">${ch.emoji}</span>
+                                <div>
+                                    <div class="challenge-name">${ch.title}</div>
+                                    <div class="challenge-status-text">${statusLabel}</div>
+                                </div>
+                            </div>
+                            <div class="challenge-toggle-group">
+                                <button type="button" class="challenge-btn ${status === 'si' ? 'active-yes' : ''}" data-key="${ch.key}" data-val="si">
+                                    SÍ
+                                </button>
+                                <button type="button" class="challenge-btn ${status === 'no' ? 'active-no' : ''}" data-key="${ch.key}" data-val="no">
+                                    NO
+                                </button>
+                            </div>
+                        </div>
+                        <div class="challenge-gamified-stats">
+                            <div class="stats-meta">
+                                <span class="stats-label">
+                                    <span class="stats-fire-icon">🔥</span>
+                                    <span>Éxito mensual: <strong>${exitosCount}</strong> de <strong>${elapsedDays}</strong> días</span>
+                                </span>
+                                <span class="stats-badge ${tierClass}">
+                                    ${badgeIcon} ${rate}%
+                                </span>
+                            </div>
+                            <div class="stats-progress-track">
+                                <div class="stats-progress-bar ${barClass}" style="width: ${rate}%;"></div>
+                            </div>
+                            <div class="stats-motivation">${motivationMsg}</div>
+                        </div>
+                    `;
+
+                    // Eventos en botones SÍ y NO
+                    card.querySelectorAll('.challenge-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const val = btn.getAttribute('data-val');
+                            setReto(dateStr, ch.key, val);
+                        });
+                    });
+
+                    $challengesList.appendChild(card);
+                });
+            }
+
+            // ─── RENDER: VISTA GLOBAL (TODOS LOS MESES 2026-2027) ───
+            function renderGlobalListView() {
+                $globalListView.innerHTML = '';
+                let hasAny = false;
+
+                const chronologicalTimeline = [];
+                for (let m = 0; m < 12; m++) chronologicalTimeline.push({ year: 2026, month: m });
+                for (let m = 0; m < 12; m++) chronologicalTimeline.push({ year: 2027, month: m });
+
+                chronologicalTimeline.forEach(entry => {
+                    const monthActs = getActivitiesForMonth(entry.year, entry.month);
+                    if (monthActs.length === 0) return;
+                    hasAny = true;
+
+                    const group = document.createElement('div');
+                    group.className = 'global-month-group';
+                    group.innerHTML = `<h3>${MONTHS_ES[entry.month]} ${entry.year}</h3>`;
+
+                    monthActs.sort((a, b) => a.startDate.localeCompare(b.startDate));
+
+                    monthActs.forEach(act => {
+                        const catConf = getCatConfig(act.category);
+                        const sDate = parseDate(act.startDate);
+                        const sDay = sDate ? sDate.getDate() : '--';
+                        const sMon = sDate ? MONTHS_SHORT[sDate.getMonth()] : '';
+
+                        const item = document.createElement('div');
+                        item.className = 'activity-card';
+                        item.innerHTML = `
+                            <div class="card-color-stripe" style="background:${catConf.color};"></div>
+                            <div class="card-date-box">
+                                <span class="card-date-day">${sDay}</span>
+                                <span class="card-date-month">${sMon}</span>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-title">${escapeHTML(act.title)}</div>
+                                <div class="card-meta">
+                                    <span class="card-badge" style="background:${catConf.bg};color:${catConf.color};">
+                                        ${catConf.emoji} ${catConf.label}
+                                    </span>
+                                    <span style="font-size:0.72rem;color:var(--text3);font-weight:600;">${formatDateRange(act.startDate, act.endDate)}</span>
+                                </div>
+                                ${act.notes ? `<span class="card-notes">💬 ${escapeHTML(act.notes)}</span>` : ''}
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-card-action reminder-act" data-id="${act.id}" title="Crear recordatorio en Google Calendar" aria-label="Crear recordatorio">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                </button>
+                                <button class="btn-card-action edit-act" data-id="${act.id}" title="Editar" aria-label="Editar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                </button>
+                                <button class="btn-card-action delete-act" data-id="${act.id}" title="Eliminar" aria-label="Eliminar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                                </button>
+                            </div>
+                        `;
+                        group.appendChild(item);
+                    });
+
+                    $globalListView.appendChild(group);
+                });
+
+                if (!hasAny) {
+                    $globalListView.innerHTML = `
+                        <div class="empty-state" style="background:var(--surface);border-radius:var(--radius-lg);padding:40px 16px;">
+                            <span class="empty-icon">📭</span>
+                            <p>No hay actividades programadas.</p>
+                            <button class="btn btn-accent" id="btnGlobalEmptyAdd">+ Añadir la primera actividad</button>
+                        </div>
+                    `;
+                    const emptyBtn = $globalListView.querySelector('#btnGlobalEmptyAdd');
+                    if (emptyBtn) emptyBtn.addEventListener('click', () => openModal());
+                }
+
+                $globalListView.querySelectorAll('.reminder-act').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        const act = activities.find(a => a.id === id);
+                        if (act) openGoogleCalendarReminder(act);
+                    });
+                });
+
+                $globalListView.querySelectorAll('.edit-act').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        const act = activities.find(a => a.id === id);
+                        if (act) openModal(act);
+                    });
+                });
+
+                $globalListView.querySelectorAll('.delete-act').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        openConfirmDelete(id);
+                    });
+                });
+            }
+
+            function renderAll() {
+                renderMonthTabs();
+                renderMonthView();
+                renderGlobalListView();
+            }
+
+            // ─── GESTOS TÁCTILES (SWIPE EN EL CALENDARIO) ──
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            $monthHeroCard.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            $monthHeroCard.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+
+                if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.4) {
+                    if (diffX < 0) {
+                        if (selectedMonthIndex < MONTHS_LIST.length - 1) changeMonth(selectedMonthIndex + 1);
+                    } else {
+                        if (selectedMonthIndex > 0) changeMonth(selectedMonthIndex - 1);
+                    }
+                }
+            }, { passive: true });
+
+            // ─── MODAL ─────────────────────────
+            function openModal(activity = null, prefilledDate = null) {
+                const curr = MONTHS_LIST[selectedMonthIndex];
+                $activityId.value = activity ? activity.id : '';
+                $actTitle.value = activity ? activity.title : '';
+
+                if (activity) {
+                    $actStart.value = activity.startDate;
+                    $actEnd.value = activity.endDate || '';
+                    $actCategory.value = activity.category || 'evento';
+                    $actNotes.value = activity.notes || '';
+                } else {
+                    const fallbackDate = prefilledDate || formatDateToInput(curr.year, curr.month, selectedDay || 1);
+                    $actStart.value = fallbackDate;
+                    $actEnd.value = '';
+                    $actCategory.value = 'evento';
+                    $actNotes.value = '';
+                }
+
+                $modalTitle.innerHTML = activity ? '✏️ Editar Actividad' : '✨ Actividad';
+                $modalSave.textContent = activity ? '💾 Actualizar' : '💾 Guardar';
+                $modalOverlay.classList.remove('hidden');
+                setTimeout(() => $actTitle.focus(), 150);
+            }
+
+            function closeModal() {
+                $modalOverlay.classList.add('hidden');
+                $activityForm.reset();
+                $activityId.value = '';
+            }
+
+            function openConfirmDelete(id) {
+                $confirmDeleteId.value = id;
+                $confirmOverlay.classList.remove('hidden');
+            }
+
+            function closeConfirm() {
+                $confirmOverlay.classList.add('hidden');
+                $confirmDeleteId.value = '';
+            }
+
+            // ─── CRUD ──────────────────────────
+            function saveActivity(e) {
+                e.preventDefault();
+                const title = $actTitle.value.trim();
+                const startDate = $actStart.value;
+                const endDate = $actEnd.value || '';
+                const category = $actCategory.value;
+                const notes = $actNotes.value.trim();
+
+                if (!title || !startDate) {
+                    showToast('⚠️ Título y fecha son obligatorios');
+                    return;
+                }
+                if (endDate && endDate < startDate) {
+                    showToast('⚠️ La fecha fin no puede ser anterior');
+                    return;
+                }
+
+                const id = $activityId.value || generateId();
+                const actData = { id, title, startDate, endDate, category, notes };
+
+                if ($activityId.value) {
+                    const idx = activities.findIndex(a => a.id === id);
+                    if (idx >= 0) activities[idx] = actData;
+                    showToast('✅ Actividad actualizada');
+                } else {
+                    activities.push(actData);
+                    showToast('🎉 Actividad añadida');
+                }
+
+                const parsedS = parseDate(startDate);
+                if (parsedS) {
+                    const matchedIdx = MONTHS_LIST.findIndex(m => m.year === parsedS.getFullYear() && m.month === parsedS.getMonth());
+                    if (matchedIdx >= 0) {
+                        selectedMonthIndex = matchedIdx;
+                    }
+                }
+
+                saveData();
+                closeModal();
+                renderAll();
+            }
+
+            function deleteActivity(id) {
+                activities = activities.filter(a => a.id !== id);
+                saveData();
+                closeConfirm();
+                renderAll();
+                showToast('🗑️ Actividad eliminada');
+            }
+
+            function setView(view) {
+                currentView = view;
+                if (view === 'grid') {
+                    $monthViewContainer.classList.remove('hidden');
+                    $globalListView.classList.add('hidden');
+                    $btnGridView.classList.add('active');
+                    $btnListView.classList.remove('active');
+                } else {
+                    $globalListView.classList.remove('hidden');
+                    $monthViewContainer.classList.add('hidden');
+                    $btnListView.classList.add('active');
+                    $btnGridView.classList.remove('active');
+                    renderGlobalListView();
+                }
+            }
+
+            // ─── EVENT LISTENERS ───────────────
+            $btnPrevMonth.addEventListener('click', () => {
+                if (selectedMonthIndex > 0) changeMonth(selectedMonthIndex - 1);
+            });
+
+            $btnNextMonth.addEventListener('click', () => {
+                if (selectedMonthIndex < MONTHS_LIST.length - 1) changeMonth(selectedMonthIndex + 1);
+            });
+
+            $btnTodayQuick.addEventListener('click', () => {
+                const today = new Date();
+                const currentY = today.getFullYear();
+                const currentM = today.getMonth();
+
+                const foundIdx = MONTHS_LIST.findIndex(m => m.year === currentY && m.month === currentM);
+                if (foundIdx >= 0) {
+                    selectedMonthIndex = foundIdx;
+                    selectedDay = today.getDate();
+                } else {
+                    selectedMonthIndex = 0;
+                    selectedDay = 16;
+                }
+                changeMonth(selectedMonthIndex);
+            });
+
+            $btnGridView.addEventListener('click', () => setView('grid'));
+            $btnListView.addEventListener('click', () => setView('list'));
+            $btnAddForMonth.addEventListener('click', () => openModal());
+            $fabAdd.addEventListener('click', () => openModal());
+            $modalClose.addEventListener('click', closeModal);
+            $modalCancel.addEventListener('click', closeModal);
+            $modalOverlay.addEventListener('click', (e) => {
+                if (e.target === $modalOverlay) closeModal();
+            });
+
+            $modalReminder.addEventListener('click', () => {
+                const title = $actTitle.value.trim();
+                const startDate = $actStart.value;
+                const endDate = $actEnd.value || '';
+                const category = $actCategory.value;
+                const notes = $actNotes.value.trim();
+
+                if (!title || !startDate) {
+                    showToast('⚠️ Introduce un título y fecha de inicio primero');
+                    return;
+                }
+
+                openGoogleCalendarReminder({
+                    title,
+                    startDate,
+                    endDate,
+                    category,
+                    notes
+                });
+            });
+
+            $activityForm.addEventListener('submit', saveActivity);
+            $confirmCancel.addEventListener('click', closeConfirm);
+            $confirmOverlay.addEventListener('click', (e) => {
+                if (e.target === $confirmOverlay) closeConfirm();
+            });
+            $confirmOk.addEventListener('click', () => {
+                const id = $confirmDeleteId.value;
+                if (id) deleteActivity(id);
+            });
+
+            $btnExport.addEventListener('click', exportData);
+            $btnImport.addEventListener('click', () => $importFileInput.click());
+            $importFileInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files[0]) {
+                    importData(e.target.files[0]);
+                    $importFileInput.value = '';
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!$modalOverlay.classList.contains('hidden')) closeModal();
+                    else if (!$confirmOverlay.classList.contains('hidden')) closeConfirm();
+                }
+                if (e.ctrlKey && e.key === 'n') {
+                    e.preventDefault();
+                    openModal();
+                }
+                if (e.key === 'ArrowLeft' && currentView === 'grid' && $modalOverlay.classList.contains('hidden')) {
+                    if (selectedMonthIndex > 0) changeMonth(selectedMonthIndex - 1);
+                }
+                if (e.key === 'ArrowRight' && currentView === 'grid' && $modalOverlay.classList.contains('hidden')) {
+                    if (selectedMonthIndex < MONTHS_LIST.length - 1) changeMonth(selectedMonthIndex + 1);
+                }
+            });
+
+            // ─── INICIALIZACIÓN ────────────────
+            loadData();
+            selectedMonthIndex = 0; // Arranca en Agosto 2026
+            renderAll();
+        })();
+    </script>
+</body>
+
+</html>
