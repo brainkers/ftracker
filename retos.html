@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos Gamificados - Gestor de Hábitos</title>
+    <style>
+        /* ========== VARIABLES Y RESET ========== */
+        :root {
+            --color-primario: #2c3e50;
+            --color-secundario: #3498db;
+            --color-exito: #27ae60;
+            --color-fondo: #f5f7fa;
+            --color-blanco: #ffffff;
+            --color-texto: #333333;
+            --color-borde: #e0e0e0;
+            --radio-borde: 8px;
+            --sombra: 0 2px 5px rgba(0,0,0,0.1);
+            --transicion: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            background-color: var(--color-primario);
+            color: var(--color-blanco);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: var(--sombra);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-exportar {
+            background-color: var(--color-secundario);
+            color: var(--color-blanco);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transicion);
+        }
+
+        .btn-exportar:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* ========== CONTENEDOR PRINCIPAL ========== */
+        .contenedor-app {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+        }
+
+        @media (max-width: 768px) {
+            .contenedor-app {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        /* ========== TARJETAS ========== */
+        .tarjeta {
+            background-color: var(--color-blanco);
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tarjeta h2 {
+            color: var(--color-primario);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--color-fondo);
+            padding-bottom: 0.5rem;
+        }
+
+        /* ========== LISTA DE RETOS ========== */
+        .lista-retos {
+            list-style: none;
+        }
+
+        .item-reto {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--color-fondo);
+            transition: var(--transicion);
+        }
+
+        .item-reto:hover {
+            background-color: #fafafa;
+            padding-left: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .info-reto {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .checkbox-reto {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--color-exito);
+        }
+
+        .nombre-reto {
+            font-weight: 500;
+        }
+
+        .categoria-badge {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .puntos-badge {
+            background-color: #f39c12;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 12px;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .btn-eliminar {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+            transition: var(--transicion);
+        }
+
+        .btn-eliminar:hover {
+            color: #c0392b;
+            transform: scale(1.2);
+        }
+
+        .btn-agregar {
+            background-color: var(--color-exito);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+            transition: var(--transicion);
+            font-weight: 500;
+        }
+
+        .btn-agregar:hover {
+            background-color: #219a52;
+            transform: translateY(-2px);
+        }
+
+        /* ========== CALENDARIO ========== */
+        .encabezado-calendario {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .btn-nav {
+            background-color: var(--color-fondo);
+            border: 1px solid var(--color-borde);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transicion);
+        }
+
+        .btn-nav:hover {
+            background-color: var(--color-secundario);
+            color: white;
+            border-color: var(--color-secundario);
+        }
+
+        .titulo-mes {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primario);
+        }
+
+        .btn-hoy {
+            background-color: var(--color-secundario);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transicion);
+        }
+
+        .btn-hoy:hover {
+            background-color: #2980b9;
+        }
+
+        .dias-semana {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+            font-weight: 600;
+            color: #7f8c8d;
+            margin-bottom: 4px;
+        }
+
+        .dias-semana span {
+            padding: 0.5rem;
+        }
+
+        .cuadricula-calendario {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .dia-calendario {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: var(--transicion);
+            position: relative;
+            font-size: 0.9rem;
+            background-color: #fafafa;
+        }
+
+        .dia-calendario:hover {
+            background-color: #e8f0fe;
+            border-color: var(--color-secundario);
+        }
+
+        .dia-calendario.otro-mes {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .dia-calendario.hoy {
+            border: 2px solid var(--color-secundario);
+            font-weight: bold;
+        }
+
+        .dia-calendario.seleccionado {
+            background-color: #d4e6f1;
+            border-color: #2980b9;
+            box-shadow: 0 0 5px rgba(41,128,185,0.3);
+        }
+
+        .dia-calendario.tiene-completados {
+            background-color: #e8f8f5;
+        }
+
+        .indicador-completados {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background-color: var(--color-exito);
+            color: white;
+            font-size: 0.65rem;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ========== RESUMEN ========== */
+        .resumen-puntos {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .bloque-puntos {
+            background-color: var(--color-fondo);
+            padding: 1rem;
+            border-radius: var(--radio-borde);
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .bloque-puntos .numero {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primario);
+        }
+
+        .bloque-puntos .etiqueta {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        /* ========== MODAL ========== */
+        .modal-fondo {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-contenido {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radio-borde);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-contenido h3 {
+            margin-bottom: 1.5rem;
+            color: var(--color-primario);
+        }
+
+        .campo-formulario {
+            margin-bottom: 1.2rem;
+        }
+
+        .campo-formulario label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .campo-formulario input,
+        .campo-formulario select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--color-borde);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transicion);
+        }
+
+        .campo-formulario input:focus,
+        .campo-formulario select:focus {
+            outline: none;
+            border-color: var(--color-secundario);
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+
+        .botones-modal {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancelar {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-guardar {
+            background-color: var(--color-exito);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <h1>🏆 Retos Gamificados</h1>
+        <button class="btn-exportar" onclick="exportarJSON()" title="Descargar datos en formato JSON">
+            📥 Exportar JSON
+        </button>
+    </header>
+
+    <!-- ========== CONTENEDOR PRINCIPAL ========== -->
+    <div class="contenedor-app">
+
+        <!-- ========== PANEL IZQUIERDO: RETOS ========== -->
+        <aside>
+            <div class="tarjeta">
+                <h2>📋 Mis Retos</h2>
+                <p style="font-size:0.9rem; color:#7f8c8d; margin-bottom:1rem;">
+                    Fecha seleccionada: <strong id="fecha-seleccionada"></strong>
+                </p>
+                <ul class="lista-retos" id="lista-retos">
+                    <!-- Los retos se renderizan aquí dinámicamente -->
+                </ul>
+                <button class="btn-agregar" onclick="abrirModal()">➕ Añadir Reto Personalizado</button>
+            </div>
+        </aside>
+
+        <!-- ========== PANEL DERECHO: CALENDARIO Y RESUMEN ========== -->
+        <main>
+            <div class="tarjeta">
+                <h2>📅 Calendario de Tracking</h2>
+                <div class="encabezado-calendario">
+                    <button class="btn-nav" onclick="cambiarMes(-1)">◀</button>
+                    <span class="titulo-mes" id="titulo-mes"></span>
+                    <button class="btn-nav" onclick="cambiarMes(1)">▶</button>
+                    <button class="btn-hoy" onclick="irHoy()">Hoy</button>
+                </div>
+                <div class="dias-semana">
+                    <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+                </div>
+                <div class="cuadricula-calendario" id="cuadricula-calendario">
+                    <!-- Los días se generan aquí -->
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <h2>📊 Resumen de Puntos</h2>
+                <div class="resumen-puntos">
+                    <div class="bloque-puntos">
+                        <div class="numero" id="puntos-hoy">0</div>
+                        <div class="etiqueta">Puntos del día</div>
+                    </div>
+                    <div class="bloque-puntos">
+                        <div class="numero" id="puntos-totales">0</div>
+                        <div class="etiqueta">Puntos totales</div>
+                    </div>
+                    <div class="bloque-puntos">
+                        <div class="numero" id="retos-completados-total">0</div>
+                        <div class="etiqueta">Retos completados</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========== MODAL PARA AÑADIR RETO ========== -->
+    <div class="modal-fondo" id="modal-reto">
+        <div class="modal-contenido">
+            <h3>➕ Nuevo Reto Personalizado</h3>
+            <form id="form-reto" onsubmit="guardarReto(event)">
+                <div class="campo-formulario">
+                    <label for="nombre-reto">Nombre del reto</label>
+                    <input type="text" id="nombre-reto" placeholder="Ej: Caminar 10.000 pasos" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="categoria-reto">Categoría</label>
+                    <select id="categoria-reto">
+                        <option value="Dieta">Dieta</option>
+                        <option value="Ejercicio">Ejercicio</option>
+                        <option value="Ahorro">Ahorro</option>
+                        <option value="Bienestar">Bienestar</option>
+                        <option value="Mental">Mental</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div class="campo-formulario">
+                    <label for="puntos-reto">Puntos por cumplimiento</label>
+                    <input type="number" id="puntos-reto" min="1" max="100" value="10" required>
+                </div>
+                <div class="botones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar Reto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ========== MODELO DE DATOS ==========
+        const CLAVE_ALMACENAMIENTO = 'retos_gamificados_data';
+
+        // Datos predefinidos si no hay nada en localStorage
+        const datosIniciales = {
+            retos: [
+                { id: 'beber-agua', nombre: 'Beber 2 litros de agua', categoria: 'Dieta', puntos: 10, predefinido: true },
+                { id: 'frutas-verduras', nombre: 'Comer 5 piezas de fruta/verdura', categoria: 'Dieta', puntos: 15, predefinido: true },
+                { id: 'ejercicio-30', nombre: 'Hacer 30 min de ejercicio', categoria: 'Ejercicio', puntos: 20, predefinido: true },
+                { id: 'ahorrar-5', nombre: 'Ahorrar 5€', categoria: 'Ahorro', puntos: 15, predefinido: true },
+                { id: 'no-azucar', nombre: 'No comer azúcar', categoria: 'Dieta', puntos: 20, predefinido: true },
+                { id: 'meditar-10', nombre: 'Meditar 10 minutos', categoria: 'Bienestar', puntos: 10, predefinido: true },
+                { id: 'leer-20', nombre: 'Leer 20 minutos', categoria: 'Mental', puntos: 10, predefinido: true }
+            ],
+            completados: {} // formato: { 'YYYY-MM-DD': [idReto1, idReto2, ...] }
+        };
+
+        // ========== ESTADO GLOBAL ==========
+        let datos = cargarDatos();
+        let fechaSeleccionada = obtenerFechaHoy(); // formato YYYY-MM-DD
+        let mesActual = new Date().getMonth();
+        let anioActual = new Date().getFullYear();
+
+        // ========== FUNCIONES DE UTILIDAD ==========
+        function obtenerFechaHoy() {
+            const hoy = new Date();
+            return formatearFecha(hoy);
+        }
+
+        function formatearFecha(fecha) {
+            const anio = fecha.getFullYear();
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            return `${anio}-${mes}-${dia}`;
+        }
+
+        function formatearFechaBonita(fechaISO) {
+            if (!fechaISO) return '';
+            const partes = fechaISO.split('-');
+            const fecha = new Date(partes[0], partes[1] - 1, partes[2]);
+            return fecha.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function generarId() {
+            return 'reto_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+        }
+
+        // ========== PERSISTENCIA ==========
+        function cargarDatos() {
+            const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
+            if (datosGuardados) {
+                try {
+                    return JSON.parse(datosGuardados);
+                } catch (e) {
+                    console.error('Error al parsear datos guardados, usando datos iniciales', e);
+                    return JSON.parse(JSON.stringify(datosIniciales));
+                }
+            }
+            return JSON.parse(JSON.stringify(datosIniciales));
+        }
+
+        function guardarDatos() {
+            localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(datos));
+        }
+
+        // ========== RENDERIZADO ==========
+        function renderizarTodo() {
+            renderizarRetos();
+            renderizarCalendario();
+            actualizarResumen();
+            actualizarFechaSeleccionada();
+        }
+
+        function renderizarRetos() {
+            const lista = document.getElementById('lista-retos');
+            lista.innerHTML = '';
+
+            if (datos.retos.length === 0) {
+                lista.innerHTML = '<li style="text-align:center; color:#7f8c8d;">No hay retos. ¡Añade uno!</li>';
+                return;
+            }
+
+            // Obtener completados para la fecha seleccionada
+            const completadosFecha = datos.completados[fechaSeleccionada] || [];
+
+            datos.retos.forEach(reto => {
+                const li = document.createElement('li');
+                li.className = 'item-reto';
+
+                const estaCompletado = completadosFecha.includes(reto.id);
+
+                li.innerHTML = `
+                    <div class="info-reto">
+                        <input type="checkbox" class="checkbox-reto" 
+                               id="check-${reto.id}" 
+                               data-reto-id="${reto.id}"
+                               ${estaCompletado ? 'checked' : ''}
+                               onchange="toggleCompletado('${reto.id}', this.checked)">
+                        <label for="check-${reto.id}" style="cursor:pointer; display:flex; align-items:center; gap:0.8rem; flex:1;">
+                            <span class="nombre-reto">${reto.nombre}</span>
+                            <span class="categoria-badge">${reto.categoria}</span>
+                        </label>
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <span class="puntos-badge">+${reto.puntos} pts</span>
+                        ${!reto.predefinido ? `<button class="btn-eliminar" onclick="eliminarReto('${reto.id}')" title="Eliminar reto">✕</button>` : ''}
+                    </div>
+                `;
+                lista.appendChild(li);
+            });
+        }
+
+        function renderizarCalendario() {
+            const contenedor = document.getElementById('cuadricula-calendario');
+            const tituloMes = document.getElementById('titulo-mes');
+            contenedor.innerHTML = '';
+
+            // Nombre del mes
+            const fecha = new Date(anioActual, mesActual, 1);
+            tituloMes.textContent = fecha.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+
+            // Primer día del mes (0 = Domingo, 1 = Lunes, ...)
+            const primerDia = new Date(anioActual, mesActual, 1);
+            let diaSemanaInicio = primerDia.getDay(); // 0 (domingo) a 6 (sábado)
+            // Convertir a lunes como primer día (0 = lunes, 6 = domingo)
+            diaSemanaInicio = (diaSemanaInicio === 0) ? 6 : diaSemanaInicio - 1;
+
+            // Días del mes
+            const diasEnMes = new Date(anioActual, mesActual + 1, 0).getDate();
+
+            // Días del mes anterior para rellenar
+            const diasMesAnterior = new Date(anioActual, mesActual, 0).getDate();
+
+            // Total de celdas (múltiplo de 7)
+            const totalCeldas = Math.ceil((diaSemanaInicio + diasEnMes) / 7) * 7;
+
+            // Generar celdas
+            for (let i = 0; i < totalCeldas; i++) {
+                const diaNumero = i - diaSemanaInicio + 1;
+                let fechaCompleta;
+                let esOtroMes = false;
+
+                if (diaNumero <= 0) {
+                    // Mes anterior
+                    const diaAnterior = diasMesAnterior + diaNumero;
+                    fechaCompleta = formatearFecha(new Date(anioActual, mesActual - 1, diaAnterior));
+                    esOtroMes = true;
+                } else if (diaNumero > diasEnMes) {
+                    // Mes siguiente
+                    const diaSiguiente = diaNumero - diasEnMes;
+                    fechaCompleta = formatearFecha(new Date(anioActual, mesActual + 1, diaSiguiente));
+                    esOtroMes = true;
+                } else {
+                    fechaCompleta = formatearFecha(new Date(anioActual, mesActual, diaNumero));
+                }
+
+                const diaDiv = document.createElement('div');
+                diaDiv.className = 'dia-calendario';
+                if (esOtroMes) diaDiv.classList.add('otro-mes');
+                if (fechaCompleta === obtenerFechaHoy()) diaDiv.classList.add('hoy');
+                if (fechaCompleta === fechaSeleccionada) diaDiv.classList.add('seleccionado');
+
+                // Verificar si hay completados en esa fecha
+                const completadosEnFecha = datos.completados[fechaCompleta] || [];
+                if (completadosEnFecha.length > 0) {
+                    diaDiv.classList.add('tiene-completados');
+                }
+
+                diaDiv.innerHTML = `
+                    <span>${esOtroMes ? (diaNumero <= 0 ? diaNumero : diaNumero) : diaNumero}</span>
+                    ${completadosEnFecha.length > 0 ? `<span class="indicador-completados">${completadosEnFecha.length}</span>` : ''}
+                `;
+
+                diaDiv.addEventListener('click', () => {
+                    if (!esOtroMes) {
+                        fechaSeleccionada = fechaCompleta;
+                        renderizarTodo();
+                    }
+                });
+
+                contenedor.appendChild(diaDiv);
+            }
+        }
+
+        function actualizarResumen() {
+            // Puntos del día seleccionado
+            const completadosHoy = datos.completados[fechaSeleccionada] || [];
+            let puntosHoy = 0;
+            completadosHoy.forEach(idReto => {
+                const reto = datos.retos.find(r => r.id === idReto);
+                if (reto) puntosHoy += reto.puntos;
+            });
+
+            // Puntos totales (todos los días)
+            let puntosTotales = 0;
+            let totalRetosCompletados = 0;
+            for (const fecha in datos.completados) {
+                const ids = datos.completados[fecha];
+                ids.forEach(idReto => {
+                    const reto = datos.retos.find(r => r.id === idReto);
+                    if (reto) {
+                        puntosTotales += reto.puntos;
+                        totalRetosCompletados++;
+                    }
+                });
+            }
+
+            document.getElementById('puntos-hoy').textContent = puntosHoy;
+            document.getElementById('puntos-totales').textContent = puntosTotales;
+            document.getElementById('retos-completados-total').textContent = totalRetosCompletados;
+        }
+
+        function actualizarFechaSeleccionada() {
+            document.getElementById('fecha-seleccionada').textContent = formatearFechaBonita(fechaSeleccionada);
+        }
+
+        // ========== ACCIONES ==========
+        function toggleCompletado(idReto, completado) {
+            if (!datos.completados[fechaSeleccionada]) {
+                datos.completados[fechaSeleccionada] = [];
+            }
+            const lista = datos.completados[fechaSeleccionada];
+
+            if (completado) {
+                if (!lista.includes(idReto)) {
+                    lista.push(idReto);
+                }
+            } else {
+                datos.completados[fechaSeleccionada] = lista.filter(id => id !== idReto);
+                if (datos.completados[fechaSeleccionada].length === 0) {
+                    delete datos.completados[fechaSeleccionada];
+                }
+            }
+
+            guardarDatos();
+            renderizarTodo(); // Re-render para actualizar calendario y resumen
+        }
+
+        function eliminarReto(idReto) {
+            if (!confirm('¿Seguro que deseas eliminar este reto? Se eliminará también de los registros.')) {
+                return;
+            }
+            // Eliminar de la lista de retos
+            datos.retos = datos.retos.filter(r => r.id !== idReto);
+            // Eliminar de completados en todas las fechas
+            for (const fecha in datos.completados) {
+                datos.completados[fecha] = datos.completados[fecha].filter(id => id !== idReto);
+                if (datos.completados[fecha].length === 0) {
+                    delete datos.completados[fecha];
+                }
+            }
+            guardarDatos();
+            renderizarTodo();
+        }
+
+        function cambiarMes(direccion) {
+            mesActual += direccion;
+            if (mesActual < 0) {
+                mesActual = 11;
+                anioActual--;
+            } else if (mesActual > 11) {
+                mesActual = 0;
+                anioActual++;
+            }
+            renderizarCalendario();
+        }
+
+        function irHoy() {
+            const hoy = new Date();
+            mesActual = hoy.getMonth();
+            anioActual = hoy.getFullYear();
+            fechaSeleccionada = obtenerFechaHoy();
+            renderizarTodo();
+        }
+
+        // ========== MODAL ==========
+        function abrirModal() {
+            document.getElementById('modal-reto').style.display = 'flex';
+            document.getElementById('nombre-reto').focus();
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-reto').style.display = 'none';
+            document.getElementById('form-reto').reset();
+        }
+
+        function guardarReto(evento) {
+            evento.preventDefault();
+            const nombre = document.getElementById('nombre-reto').value.trim();
+            const categoria = document.getElementById('categoria-reto').value;
+            const puntos = parseInt(document.getElementById('puntos-reto').value, 10);
+
+            if (!nombre || !puntos || puntos <= 0) {
+                alert('Por favor introduce un nombre y puntos válidos.');
+                return;
+            }
+
+            const nuevoReto = {
+                id: generarId(),
+                nombre: nombre,
+                categoria: categoria,
+                puntos: puntos,
+                predefinido: false
+            };
+
+            datos.retos.push(nuevoReto);
+            guardarDatos();
+            cerrarModal();
+            renderizarTodo();
+        }
+
+        // ========== EXPORTAR JSON ==========
+        function exportarJSON() {
+            const datosExportar = {
+                version: '1.0',
+                fechaExportacion: new Date().toISOString(),
+                retos: datos.retos,
+                completados: datos.completados
+            };
+            const jsonString = JSON.stringify(datosExportar, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const enlace = document.createElement('a');
+            enlace.href = url;
+            enlace.download = `retos_gamificados_${obtenerFechaHoy()}.json`;
+            document.body.appendChild(enlace);
+            enlace.click();
+            document.body.removeChild(enlace);
+            URL.revokeObjectURL(url);
+        }
+
+        // ========== INICIALIZACIÓN ==========
+        renderizarTodo();
+    </script>
+</body>
+</html>
